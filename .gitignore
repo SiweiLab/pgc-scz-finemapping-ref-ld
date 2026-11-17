@@ -11,3 +11,4 @@ multi_ancestry/metrics/pip_vectors_susiex_published_full.csv.gz
 __pycache__/
 *.pyc
 .DS_Store
+.idea/
