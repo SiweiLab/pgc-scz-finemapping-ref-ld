@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Regenerate every v2 manuscript figure/table in figures/v2/ from the laptop-side exports (no cluster, no refits).
-# Reconstructed 2026-10-06 and verified: with OUT=/private/tmp/claude-504/regen_check every output below is
+# Reconstructed 2026-10-06 and verified: with OUT=/tmp/regen_check every output below is
 # pixel-identical (PNG) / exactly equal (CSV, XLSX, caption .txt) to the committed figures/v2 files.
 #
 #   bash regenerate_v2.sh                                   # writes figures/v2 (the default)
-#   OUT=/private/tmp/claude-504/regen_check bash regenerate_v2.sh   # writes elsewhere, repo untouched
+#   OUT=/tmp/regen_check bash regenerate_v2.sh   # writes elsewhere, repo untouched
 #
 # External inputs: ../inputs/ (Trubetskoy 2022 ST11, Mawson 2026 media-2; see ../inputs/README.md), including
 #   ../inputs/202.EUR_ASN.SuSiEx_spec/                           Yuan et al. SuSiEx output (bench_sensfdr.KAI; the 193 loci).
 #                                                                 Git-ignored, not distributed: available from the authors of Yuan et al. on request.
 # Outside the repo:
-#   /System/Library/Fonts/Supplemental/Arial Bold.ttf            panel letters in the compose_*.py composites (macOS)
+#   Arial Bold (macOS) or matplotlib DejaVu Sans Bold (paths.bold_font)   panel letters in the compose_*.py composites
 # Repo inputs: ../aou_ld/task_v2_out/{noambig,primary,lsweep/noambig,extra_susiex_euraou}, ../aou_ld/task_{a,b53,b55,
 #   b57,b64,b67,b70}_out, and metrics/*.csv(.gz), loci_*.txt.
 # Hand-made inputs that no script makes (copied into OUT when OUT is not figures/v2):
@@ -76,7 +76,7 @@ python3 plot_fig2d.py --export $X/noambig --suffix=-noambig --per-locus "$OUT/fi
 python3 fp_in_cs_v2.py --export $X/noambig --suffix=-noambig --out "$OUT/fp_in_cs_v2.csv"
 # Supp Fig 3: published in-sample merged-LD fine-mapping vs reference LD (caption .txt is hand-written)
 python3 plot_supp_published_vs_ref.py --out "$OUT/supp_published_vs_ref.png"
-# published in-sample analyses as the benchmark (Ran: one variable at a time); B69 coverage-0.95 runs for the 0.95 benchmarks
+# published in-sample analyses as the benchmark (one variable at a time); B69 coverage-0.95 runs for the 0.95 benchmarks
 python3 plot_supp_published_benchmark.py --out "$OUT/supp_published_benchmark.png"
 # Supp Fig 4 / ST1: resolution at the 41 benchmark loci with lead PIP > 0.5
 python3 plot_supp_resolution.py --export $X/noambig --suffix=-noambig --out "$OUT/supp_resolution_pip05.png"

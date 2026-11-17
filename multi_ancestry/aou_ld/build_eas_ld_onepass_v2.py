@@ -26,6 +26,7 @@ import argparse
 import glob
 import json
 import os
+WORKSPACE_BUCKET = os.environ.get("WORKSPACE_BUCKET", "gs://YOUR-WORKSPACE-BUCKET")  # AoU Workbench sets this
 import subprocess
 import sys
 import time
@@ -37,9 +38,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 ACAF = "gs://vwb-aou-datasets-controlled/v9/wgs/short_read/snpindel/acaf_threshold/splitMT/hail.mt"
 ANC = "gs://vwb-aou-datasets-controlled/v9/wgs/short_read/snpindel/aux/ancestry/ancestry_preds.tsv"
-EXCL = ("gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/aou_samples/"
+EXCL = (f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/aou_samples/"
         "combined_exclude_samples.txt")
-TG_GS = "gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/ld_v2_extract/b42/all_targets.tsv"
+TG_GS = f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/ld_v2_extract/b42/all_targets.tsv"
 PILOT = ("chr12_110129434_111489434,chr2_97500526_98599526,chr3_48182866_53553354,"
          "chr8_144792601_144940101,chr22_40612819_42707289")
 

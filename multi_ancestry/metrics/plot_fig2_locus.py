@@ -32,7 +32,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# every label bold (Qin): ticks and legends inherit font.weight
+# every label bold: ticks and legends inherit font.weight
 plt.rcParams.update({"font.weight": "bold", "axes.labelweight": "bold",
                      "axes.titleweight": "bold"})
 import matplotlib.patches as mpatches
@@ -87,7 +87,7 @@ def main():
     bench = pd.read_csv(BENCH)
     bl = bench[bench.locus == L]
     bench_pip = dict(zip(bl.bp.astype(int), bl.pip.astype(float)))
-    # EUR-only arms are out of the primary analysis (Qin, 2026-09-28)
+    # EUR-only arms are out of the primary analysis
     arms = [a for a in RAN_ORDER
             if a not in EUR_ONLY
             and os.path.exists(os.path.join(args.export, f"primary_{a}{args.suffix}_pip.csv.gz"))]
@@ -171,7 +171,7 @@ def main():
 
     # ---- 5: PIP, benchmark vs the trans-ancestry arms ------------------------------------------
     axP = axes[3]
-    # median line + min-max ribbon over the arms (Qin: the thin per-arm lines read as clutter).
+    # median line + min-max ribbon over the arms (the thin per-arm lines read as clutter).
     # Neutral grey, so it never reads as one of the arm hues the dots below use.
     allbp = sorted({bp for a in arms for bp in grids[a]})
     A = np.array([[grids[a].get(bp, np.nan) for bp in allbp] for a in arms])
@@ -228,7 +228,7 @@ def main():
                 lab = g.gene
             col = (BENCH_C if g.hit else (INK if coding else INK_MUTED))
             axG.plot([x0, x1], [-g.row] * 2,
-                     lw=6 if coding or g.hit else 2.6, color=col,   # one height: length is size (Qin)
+                     lw=6 if coding or g.hit else 2.6, color=col,   # one height: length is size
                      solid_capstyle="butt", zorder=4 if g.hit else 3,
                      alpha=0.45 if g.flank else 1.0)
             axG.annotate(lab, ((x0 + x1) / 2, -g.row - 0.32),
@@ -253,7 +253,7 @@ def main():
     for ax in [axes[0], axes[1], axes[2], axP, axG]:
         ax.set_xlim(lo, hi)
         # enough decimals for the tick spacing: on a 50 kb window the ticks fall at x.xx5 Mb, and 2 decimals mislabelled
-        # them by 5 kb (Fig. 2b, Qin)
+        # them by 5 kb (Fig. 2b)
         ax.xaxis.set_major_formatter(lambda v, _: f"{v / 1e6:.{3 if hi - lo < 300_000 else 2}f}")
         ax.grid(False)
         for s in ("top", "right"):
@@ -275,7 +275,7 @@ def main():
         h.append(mlines.Line2D([], [], marker="s", ls=":", color=FOCUS, markerfacecolor="none",
                                markeredgecolor=FOCUS, markersize=7, label="focus: " + ", ".join(focus_bp)))
     if C:
-        # two columns (Qin): every arm on the left -- all of them, whether or not it has a dot at
+        # two columns: every arm on the left -- all of them, whether or not it has a dot at
         # this locus, so the key is the same in 2a-2c -- and everything else on the right
         hh = dict(zip(*axP.get_legend_handles_labels()[::-1]))
         right = [hh[k] for k in [f"min–max, {len(arms)} methods", f"median, {len(arms)} methods", "benchmark"]

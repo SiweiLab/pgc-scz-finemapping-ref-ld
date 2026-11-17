@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Fig 1 composite (Qin): a = study-design schematic (fig1A.png, Qin's, flattened onto white) on the left,
+"""Fig 1 composite: a = study-design schematic (fig1A.png, hand-drawn, flattened onto white) on the left,
 b = in-CS PR curve top right, c = exact lead recovery bottom right. No resampling up: the right column is
 set to 1c's native width and 1b is scaled down to it; the left column is scaled to the right column's height."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 
 from paths import V2 as D
+from paths import bold_font
 GAP, PAD, LPAD = 70, 40, 130   # LPAD: room left of panel a for its letter
 
 
@@ -25,7 +26,7 @@ fig = Image.new("RGB", (W, H + 2 * PAD), "white")
 xa, xr = LPAD, LPAD + a.size[0] + GAP
 fig.paste(a, (xa, PAD)); fig.paste(b, (xr, PAD)); fig.paste(c, (xr, PAD + b.size[1] + GAP))
 d = ImageDraw.Draw(fig)
-f = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 110)
+f = bold_font(110)
 for lab, (x, y) in {"a": (10, 0), "b": (xr - 60, 0), "c": (xr - 60, PAD + b.size[1] + GAP - 20)}.items():
     d.text((max(x, 0), y), lab, font=f, fill="black")
 fig.save(os.path.join(D, "fig1.png"), dpi=(300, 300))

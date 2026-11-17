@@ -52,7 +52,7 @@
 #       --locus chr12_110129434_111489434 \
 #       --interval chr12:109000000-113000000 \        # GRCh38 window (lift the EUR window!)
 #       --ancestry-file gs://.../ancestry_preds.tsv \
-#       --out /home/jupyter/aou_ld/chr12 \
+#       --out <out_dir>/chr12 \
 #       [--vds gs://.../srwgs.vds]  [--target-snps eur_locus_hg38.tsv] \
 #       [--ancestry-code eas] [--min-call-rate 0.95] [--biallelic-snv-only]
 #

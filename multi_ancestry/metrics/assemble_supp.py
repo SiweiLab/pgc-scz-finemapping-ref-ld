@@ -17,7 +17,7 @@ OUT = os.path.join(SRC, "supp")
 # (number, panel, source png, title, script that makes it). panel "" = a single-panel figure.
 MANIFEST = [   # numbered by first citation in the text (renumbered 2026-10-14)
     (1, "", "supp_fig1_design_domains.png", "Data and variants analyzed",
-     "Qin's flowchart (supp fig1A.png) + plot_variant_domains.py --v2 --arms-only; compose_supp1.py"),
+     "the hand-drawn flowchart (supp fig1A.png) + plot_variant_domains.py --v2 --arms-only; compose_supp1.py"),
     (2, "", "supp_fig4_pr_variants.png", "Precision-recall under alternative scoring and variant sets (a-c)",
      "plot_sensfdr_curve.py --pr [--all-variants] on both trees, then compose_supp4.py"),
     (3, "", "supp_fig5_Lsweep.png", "Precision-recall across the number of modelled causal effects",

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extra (Qin, 2026-09-30): SuSiEx with AoU EUR + AoU EAS LD vs the primary v2 SuSiEx (GCTB EUR + AoU EAS), noambig.
+"""Extra: SuSiEx with AoU EUR + AoU EAS LD vs the primary v2 SuSiEx (GCTB EUR + AoU EAS), noambig.
 Same z, same argv (run_primary_2026.py's _susiex), same EAS inputs; only the EUR LD panel (and so the EUR domain) differs.
 Both runs are read with export_primary_b30.susiex (max PIP over CSs; CSs gated on SuSiEx's own purity >= MIN_PURITY).
 Usage: python compare_susiex_euraou.py GCTB_WORK GCTB_TREE AOU_WORK AOU_TREE OUT_DIR"""

@@ -36,13 +36,13 @@ RHO_MULTISUSIE = 0.75
 # SuSiEx marginal p-value gate. 1 disables it, leaving purity as the only CS filter.
 PVAL_THRESH_SUSIEX = "1"
 
-# Kai Yuan's published run passed study-wide N_eff fixed across all 250 loci (his
+# Yuan et al.'s published run passed study-wide N_eff fixed across all 250 loci (their
 # submission script, shared 2026-09-11). Our primary run computes N per locus from each
 # locus's median Weight -- an undocumented second difference from the published analysis.
 N_GWAS_PUBLISHED_EUR = 58749
 N_GWAS_PUBLISHED_EAS = 14425
 
-# Merged-LD arms, fixed (Qin, 2026-09-23). Previously each merged locus took
+# Merged-LD arms, fixed. Previously each merged locus took
 # `n_samples = round(median(Weight))` of its OWN core-sumstats slice
 # (finemap/build_finemap_input_gctb.py:67), so N varied locus to locus while the
 # per-ancestry arms used a fixed value -- an inconsistency, not a design choice.
@@ -51,7 +51,7 @@ N_GWAS_PUBLISHED_EAS = 14425
 #     european  58,749.1   <- reproduces N_GWAS_PUBLISHED_EUR exactly
 #     asian     14,424.8   <- reproduces N_GWAS_PUBLISHED_EAS exactly
 #     core      73,173.9
-# So Kai's two constants are simply each file's median NEFF, and the meta's is additive:
+# So Yuan et al.'s two constants are simply each file's median NEFF, and the meta's is additive:
 # 58,749.1 + 14,424.8 = 73,173.9. The merged arms therefore use the same convention with
 # no special-casing. This is NOT the total 161,405 (= cases + controls, N_GWAS_MAWSON_TOTAL),
 # which is a different quantity.
@@ -77,7 +77,7 @@ THREAD_LIMIT_ENV = {
 
 
 # ---------------------------------------------------------------------------
-# Sweep grids (Qin, 2026-09-09). These describe RERUNS, not the published run.
+# Sweep grids. These describe RERUNS, not the published run.
 # ---------------------------------------------------------------------------
 
 # L / n_sig / k_max values to sweep. 1 and 3 probe the low end, 5 is FINEMAP's
@@ -135,7 +135,7 @@ RHO_SWEEP_ARMS = ["MultiSuSiE"]
 # core_sumstats was always built from (confirmed against archive/eur_eas_merge_notes.md,
 # which already used this exact file with prep_pgc_locus.py for this exact purpose).
 # md5 1d8a9885cbd21b4a2f3dc50e7f9ed693, 7,585,077 data rows. Backed up at
-# gs://dataproc-staging-wb-glittery-spinach-6060/head_node_backup_2026-08-07/work/pgc3_scz_raw/
+# gs://<workspace-bucket>/backup_2026-08-07/work/pgc3_scz_raw/
 # (md5-verified identical) before this task, so not re-backed-up by B15.
 PGC3_CORE_META_SUMSTATS = "~/work/pgc3_scz_raw/PGC3_SCZ_wave3.core.autosome.public.v3.vcf.tsv.gz"
 
@@ -143,7 +143,7 @@ PGC3_CORE_META_SUMSTATS = "~/work/pgc3_scz_raw/PGC3_SCZ_wave3.core.autosome.publ
 # (Task B15). This is the canonical --core-sumstats-dir for merge_eur_eas_ld.py going
 # forward -- NOT core_sumstats_aligned_raw (pre-intersected leftover, kept only as
 # Phase 1 evidence, never delete) and NOT the original {FULL250}/core_sumstats (lost).
-# Backed up: gs://dataproc-staging-wb-glittery-spinach-6060/task_b15_backup_2026-09-13/core_sumstats_rebuilt/
+# Backed up: gs://<workspace-bucket>/task_b15_backup_2026-09-13/core_sumstats_rebuilt/
 CORE_SUMSTATS_REBUILT_DIR = "~/work/full250_qcexcl_derived/core_sumstats_rebuilt"
 
 # finemap_in built from CORE_SUMSTATS_REBUILT_DIR (Task B15's merge_eur_eas_ld.py rerun),
@@ -152,7 +152,7 @@ CORE_SUMSTATS_REBUILT_DIR = "~/work/full250_qcexcl_derived/core_sumstats_rebuilt
 # the canonical --in-files/FINEMAP_IN source for SuSiE-merged and FINEMAP-merged going
 # forward (Task B18, 2026-09-14) -- the pre-B15 sweep (task_b1_out/l_sweep_*) used the
 # stale tree and needs the rerun this task performs.
-# Backed up: gs://dataproc-staging-wb-glittery-spinach-6060/task_b15_backup_2026-09-13/finemap_in_rebuilt/
+# Backed up: gs://<workspace-bucket>/task_b15_backup_2026-09-13/finemap_in_rebuilt/
 FINEMAP_IN_REBUILT_DIR = "~/work/full250_qcexcl_derived/finemap_in_rebuilt"
 
 
@@ -166,7 +166,7 @@ FINEMAP_IN_REBUILT_DIR = "~/work/full250_qcexcl_derived/finemap_in_rebuilt"
 # size)" -- the raw case+control total. NOT our canonical convention: our merged-LD
 # n_samples (read by build_finemap_input_gctb.py's median-Weight default, and by both
 # SuSiE-merged and FINEMAP-merged off the same master$n_samples) is 73,174, the SUM of
-# N_GWAS_PUBLISHED_EUR + N_GWAS_PUBLISHED_EAS above -- Kai Yuan's own published SuSiEx
+# N_GWAS_PUBLISHED_EUR + N_GWAS_PUBLISHED_EAS above -- Yuan et al.'s own published SuSiEx
 # --n_gwas arguments, an effective-N convention, not a mistake. This constant measures
 # how much Mawson's total-N convention moves the answer; adopting it is not implied.
 N_GWAS_MAWSON_TOTAL = 161405
@@ -202,7 +202,7 @@ L_MAWSON = 5
 # LD_EUR_DIR, which has no independent pre-deletion copy to check against) verified
 # byte-identical, decompressed, against the 11-locus survivor copies where one exists.
 # Full verification: aou_ld/task_b23_out/{MANIFEST.csv, canonical_inputs_report.md}.
-# Backed up: gs://dataproc-staging-wb-glittery-spinach-6060/task_b23_backup_2026-09-16/canonical_inputs_250_qcexcl/
+# Backed up: gs://<workspace-bucket>/task_b23_backup_2026-09-16/canonical_inputs_250_qcexcl/
 # ---------------------------------------------------------------------------
 
 # Root of the consolidated tree. Every constant below is a subdirectory of this one.
@@ -366,7 +366,7 @@ CARMA_DEFAULTS_AS_RUN = dict(
 NUM_CAUSAL_CARMA = 10
 BF_INDEX_CARMA = 10
 OUTLIER_SWITCH_CARMA = True
-# RNG seed (Qin, 2026-09-30, B55). CARMA's model search is stochastic, and run_carma_pilot_b29.R never set a seed, so
+# RNG seed. CARMA's model search is stochastic, and run_carma_pilot_b29.R never set a seed, so
 # every earlier CARMA run (v1 B30/B34, and v2 B55's first noambig pass) varies from run to run: two identical unseeded
 # runs at chr5_86721950 differed by max |dPIP| 0.023. Passed as the runner's argument 7.
 SEED_CARMA = 42
@@ -375,7 +375,7 @@ SEED_CARMA = 42
 
 # ---------------------------------------------------------------------------
 # 2026-09 primary run: values that DEPART from the as-run constants above (Task B30).
-# Signed off in PRIMARY_RUN_PLAN.md sec 4 (Qin, 2026-09-23/24). The as-run constants stay
+# Signed off in PRIMARY_RUN_PLAN.md sec 4. The as-run constants stay
 # untouched as the record of the original run; the primary-run driver imports these.
 # ---------------------------------------------------------------------------
 
@@ -387,7 +387,7 @@ CTHRES_RSPARSEPRO_PRIMARY = 0.99
 # departure). Every original run used 100 (N_CONV_SSS_FINEMAP, B29).
 N_CONV_SSS_FINEMAP_PRIMARY = 1000
 
-# SuSiEx --n_gwas: the FIXED published N (Qin, 2026-09-24) -- N_GWAS_PUBLISHED_EUR/EAS above,
-# as in Kai Yuan's published run. The original primary run passed each locus's median
+# SuSiEx --n_gwas: the FIXED published N -- N_GWAS_PUBLISHED_EUR/EAS above,
+# as in Yuan et al.'s published run. The original primary run passed each locus's median
 # `Weight` instead (batch_perancestry_qcexcl.py:87), which is 57,602-58,749 for EUR.
 SUSIEX_N_GWAS_RULE_PRIMARY = "fixed_published"

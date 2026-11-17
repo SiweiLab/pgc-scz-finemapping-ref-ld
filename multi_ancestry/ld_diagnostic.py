@@ -30,8 +30,8 @@ Outputs (in --out):
 
 Usage:
   python ld_diagnostic.py chr3_48883650_54214255 \\
-      --harmonized-dir ~/Downloads/pop_isGGE_dir/ma_harmonized \\
-      --out ~/Downloads/pop_isGGE_dir/ld_diagnostic [--zsd-thresh 4] [--dump-snps] [--plot]
+      --harmonized-dir <harmonized_dir> \\
+      --out <out_dir> [--zsd-thresh 4] [--dump-snps] [--plot]
 """
 import os
 import gzip

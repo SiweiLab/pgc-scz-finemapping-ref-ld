@@ -94,7 +94,7 @@ def t4_s():
 
 
 def autofit(book, skip_rows):
-    """Excel's column autofit (Qin used to do this by hand): each column's width from its longest displayed value.
+    """Excel's column autofit (previously done by hand): each column's width from its longest displayed value.
     skip_rows: per sheet, 1-based rows left out of the measure (the one-cell table titles and README notes overflow instead)."""
     from openpyxl.utils import get_column_letter
     for ws in book.worksheets:
@@ -147,7 +147,7 @@ def main():
         "meta-analysis with one merged LD matrix). Variant IDs are PGC3 rsIDs; positions GRCh37."]})
     out = os.path.join(V2, "Supplementary_Tables.xlsx")
     with pd.ExcelWriter(out, engine="openpyxl") as w:
-        # Qin's layout (manuscript copy, 2026-10-01): one README sheet, contents table on top, notes four rows below it
+        # Layout (manuscript copy, 2026-10-01): one README sheet, contents table on top, notes four rows below it
         contents.to_excel(w, sheet_name="README", index=False)
         note.to_excel(w, sheet_name="README", index=False, header=False, startrow=len(contents) + 5)
         for name, df, title in sheets:

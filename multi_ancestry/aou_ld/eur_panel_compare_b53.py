@@ -2,7 +2,7 @@
 """B53: EUR reference-panel comparison, three panels (supplement; extends v1's B22).
 
 Same EUR z, three LD panels: GCTB-10k (`eur_gctb`), AoU-267k (`eur_aou`), PolyFun/UKBB-337k
-(`eur_polyfun`). Settings (Qin, 2026-09-30):
+(`eur_polyfun`). Settings:
   - **Common variant set per locus:** EUR sumstats & GCTB & AoU & PolyFun, non-palindromic. z is
     identical across the three fits by construction, so any difference in s or PIP comes from LD
     alone. Per-panel coverage is reported separately (coverage.csv).

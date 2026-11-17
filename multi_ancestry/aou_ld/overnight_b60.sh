@@ -1,5 +1,5 @@
 #!/bin/bash
-# B60 (new cluster), unattended overnight finish. Launch DETACHED once the six CARMA sweep drivers are running:
+# B60, unattended overnight finish. Launch DETACHED once the six CARMA sweep drivers are running:
 #   setsid nohup bash overnight_b60.sh &> ~/work/overnight_b60.log &
 #   1. wait until every CARMA sweep driver (run_primary_2026.py --arms CARMA --L ...) has exited
 #   2. export each (variant, L) -> task_v2_out/lsweep/<V>/primary_CARMA[-noambig]_L{n}_*.csv.gz
@@ -10,7 +10,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"; cd "$HERE"
 REPO="$(git rev-parse --show-toplevel)"
 LOG=~/work/overnight_b60; mkdir -p "$LOG"
 say() { echo "[$(date -u +%FT%TZ)] $*" | tee -a "$LOG/steps.log"; }
-B=gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/fine_mapping_runs/l_sweep_v2_2026-10
+B=${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/l_sweep_v2_2026-10
 : "${V2_LD_ROOT:?set V2_LD_ROOT to the local ld_matrices (ld_per_anc_eur_gctb + ld_per_anc_eas_aou) before launching}"
 
 say "1. waiting for the CARMA sweep drivers"

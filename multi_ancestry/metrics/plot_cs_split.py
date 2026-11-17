@@ -5,7 +5,7 @@ Motivation, from the 2026-09-22 diagnosis. The published benchmark is credible-s
 restricted *by construction*: across the 193 loci that formed a credible set, no variant
 outside one exceeds PIP 0.0077, and the 57 loci that formed none are all exactly 0. Our own
 SuSiEx-ours reproduces that cap (0.0075), so it is a property of SuSiEx's output format,
-not a quirk of Kai's run -- posterior mass held by a purity-filtered component is discarded
+not a quirk of Yuan et al.'s run -- posterior mass held by a purity-filtered component is discarded
 rather than redistributed (`KNOWN_ISSUE_susiex_cs_restricted_pips.md`).
 
 MultiSuSiE, MESuSiE and SuSiE-merged export COMPLETE posteriors, with up to PIP 0.97
@@ -46,7 +46,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# every label bold (Qin): ticks and legends inherit font.weight
+# every label bold: ticks and legends inherit font.weight
 plt.rcParams.update({"font.weight": "bold", "axes.labelweight": "bold",
                      "axes.titleweight": "bold"})
 import numpy as np
@@ -86,7 +86,7 @@ ALIASES = {
 }
 PRIMARY = "../aou_ld/task_a_out/pip_vectors_full250_qcexcl.csv.gz"
 
-# Ran's grouping of the method families (Qin, 2026-09-24). Arm order follows this list and a
+# The grouping of the method families. Arm order follows this list and a
 # divider is drawn wherever the group changes. MACHINE is deliberately absent: across the 250
 # loci its median top-CL is 0.155 and only 14 variants reach 0.5, so it is reported in the
 # text as a dose-response finding rather than placed beside arms in their normal range.
@@ -104,7 +104,7 @@ GROUP_OF = {a: g for g, _arms in GROUPS_RAN for a in _arms}
 GROUP_WRAP = {"per-ancestry ref LD": "per-ancestry\nref LD",
               "mismatch / latent": "mismatch /\nlatent"}
 
-# Option B encoding (Qin, 2026-09-24): HUE = TOOL, TEXTURE = LD SOURCE.
+# Option B encoding: HUE = TOOL, TEXTURE = LD SOURCE.
 # The validated categorical theme has exactly eight slots and the skill's rule is that a
 # ninth is never an invented hue, so nine distinct certified hues do not exist. Instead the
 # two EUR-only arms share their tool's hue and are marked by hatch. That is not a
@@ -125,8 +125,8 @@ ARM_HUE = {
 }
 EUR_ONLY = {"EUR-FINEMAP", "EUR-SuSiE-RSS"}
 HATCH = "///"
-# Display names (Qin): the LD source reads better as a suffix than a prefix.
-# Manuscript names (Qin, 2026-10-01): the merged-LD runs carry the tool's own name, as in the text; the grouping shows the LD.
+# Display names: the LD source reads better as a suffix than a prefix.
+# Manuscript names: the merged-LD runs carry the tool's own name, as in the text; the grouping shows the LD.
 DISPLAY = {"EUR-FINEMAP": "FINEMAP-EUR", "EUR-SuSiE-RSS": "SuSiE-RSS-EUR",
            "SuSiEx-ours": "SuSiEx", "FINEMAP-merged": "FINEMAP",
            "SuSiE-merged": "SuSiE-RSS"}
@@ -369,7 +369,7 @@ def main():
                         textcoords="offset points", ha="center", va="bottom",
                         fontsize=6.6, color=INK_MUTED)
         for ax in (aF, aR):
-            # Ran's grouping: a divider wherever the family changes, label above. Without it
+            # The grouping: a divider wherever the family changes, label above. Without it
             # nine arms read as one undifferentiated row and the comparison the paper makes
             # (per-ancestry vs merged vs EUR vs mismatch-aware) is invisible.
             prev = None

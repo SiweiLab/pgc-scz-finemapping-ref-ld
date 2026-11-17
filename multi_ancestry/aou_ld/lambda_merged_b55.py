@@ -1,12 +1,16 @@
 """SuSiE-RSS lambda (susieR::estimate_s_rss on core z + merged LD, as recorded by SuSiE-merged) per locus:
-v2 noambig / v2 primary (this run) vs v1 (b59d67a: B30 primary, B34 noambig). Qin's hypothesis (2026-09-30):
+v2 noambig / v2 primary (this run) vs v1 (b59d67a: B30 primary, B34 noambig). Hypothesis (2026-09-30):
 CARMA not finishing at chr3 may be z/LD mismatch in the v2 merged LD."""
 import gzip, io, os, re, subprocess, sys
 import numpy as np, pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 def v1(path):
+    """v1 comparison column only (not used in the paper): read from the original repository's history at b59d67a.
+    That history is not part of this release, so the column comes back empty and only lambda_v2 is filled."""
     root = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, cwd=HERE).stdout.strip()
-    b = subprocess.run(["git", "show", f"b59d67a:Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/{path}"], capture_output=True, cwd=root).stdout
+    b = subprocess.run(["git", "show", f"b59d67a:Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/{path}"], capture_output=True, cwd=root or HERE).stdout
+    if not b:
+        return pd.DataFrame({"method": pd.Series(dtype=str), "locus": pd.Series(dtype=str), "lambda": pd.Series(dtype=float)})
     return pd.read_csv(io.BytesIO(gzip.decompress(b)))
 def v2(work):
     rows = []

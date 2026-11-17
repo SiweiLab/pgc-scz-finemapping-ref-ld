@@ -1,8 +1,8 @@
 #!/bin/bash
-# B61 (old cluster), unattended overnight chain. Launch DETACHED:  setsid nohup bash overnight_b61.sh &> ~/work/overnight_b61.log &
+# B61, unattended overnight chain. Launch DETACHED:  setsid nohup bash overnight_b61.sh &> ~/work/overnight_b61.log &
 #   1. wait for both seeded chr3 CARMA fits (B59) to exit
 #   2. export the final v2 primary run, all 9 arms, both variants  -> task_v2_out/{noambig,primary}/   (gate 7 inputs)
-#   3. L sweep of the six non-CARMA sweep arms, both variants (CARMA's sweep runs on the new cluster, B60)
+#   3. L sweep of the six non-CARMA sweep arms, both variants (CARMA's sweep runs separately, B60)
 #      L = 1, 3: SuSiEx MultiSuSiE MESuSiE SuSiE-merged FINEMAP-merged RSparsePro
 #      L = 5:    the same minus FINEMAP-merged (its primary IS k = 5)
 #      L = 10:   SuSiEx (the sweep runs mult-step off, a different fit) and FINEMAP-merged
@@ -15,7 +15,7 @@ REPO="$(git rev-parse --show-toplevel)"
 LOG=~/work/overnight_b61; mkdir -p "$LOG"
 say() { echo "[$(date -u +%FT%TZ)] $*" | tee -a "$LOG/steps.log"; }
 export V2_LD_ROOT="${V2_LD_ROOT:-$HOME/work/task_b50/ld_matrices}"
-B=gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/fine_mapping_runs/l_sweep_v2_2026-10
+B=${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/l_sweep_v2_2026-10
 JOBS=7   # per driver; two drivers (one per variant) at a time on the n2-standard-16 master
 
 say "1. waiting for chr3 CARMA"
@@ -72,7 +72,7 @@ git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out   # 
 git commit -q -m "B61 overnight (unattended): final v2 exports both variants (seeded CARMA incl. chr3) + L sweep of the six non-CARMA arms; see task_v2_out/overnight_b61_steps.log, _summary.txt" || say "nothing to commit"
 for i in 1 2 3; do git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping && { say "pushed $(git rev-parse --short HEAD)"; break; }; sleep 60; done
 for V in noambig primary; do say "bucket $V: $(gsutil ls "$B/$V/" 2>/dev/null | wc -l) arm dirs under $B/$V/"; done
-say "primary backup CARMA $(gsutil ls gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/fine_mapping_runs/primary_v2_2026-09/noambig/CARMA/ 2>/dev/null | grep -c _carma_pip.tsv) noambig pip files"
+say "primary backup CARMA $(gsutil ls ${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/primary_v2_2026-09/noambig/CARMA/ 2>/dev/null | grep -c _carma_pip.tsv) noambig pip files"
 NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-cluster-name)
 REGION=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-region)
 say "stopping cluster $NAME ($REGION)"

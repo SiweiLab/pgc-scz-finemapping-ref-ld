@@ -20,7 +20,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-REPO_AOU_LD = os.path.expanduser("~/repos/ilae4/Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld")
+REPO_AOU_LD = os.path.dirname(os.path.abspath(__file__))
 EUR_DIR = os.path.expanduser("~/work/per_anc_ld/EUR")
 EAS_DIR = os.path.expanduser("~/work/per_anc_ld/EAS")
 PUB_PATH = os.path.join(REPO_AOU_LD, "task_a_out", "published_pip_vectors.csv.gz")

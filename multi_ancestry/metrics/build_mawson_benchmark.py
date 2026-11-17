@@ -26,7 +26,7 @@ it means a Mawson join is rsID-keyed rather than position+allele-keyed -- state 
 these numbers are quoted.
 
 Usage:
-  python3 build_mawson_benchmark.py --susie ~/Downloads/media-5.xlsx \
+  python3 build_mawson_benchmark.py --susie <Mawson_media-5.xlsx> \
       --finemap ../inputs/Mawson2026_media-2_FINEMAP_full.xlsx --out-dir .
 """
 import argparse

@@ -1,4 +1,4 @@
-name: /home/dataproc/envs/ilae4_finemap
+name: ilae4_finemap
 channels:
   - conda-forge
 dependencies:

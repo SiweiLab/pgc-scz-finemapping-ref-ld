@@ -128,7 +128,7 @@ def main():
     R["auprc"] = [AU[(r.arm, r.L)] for r in R.itertuples()]
     ycol = "precision" if args.pr else "fdr"
 
-    # row 1: the ancestry-aware methods, then the L / PIP key; row 2: the merged-reference-LD methods (Qin)
+    # row 1: the ancestry-aware methods, then the L / PIP key; row 2: the merged-reference-LD methods
     ncol = 4
     slots = [a for a in PER_ANC if a in arms] + [LEGEND] + [a for a in arms if a not in PER_ANC]
     nrow = int(np.ceil(len(slots) / ncol))

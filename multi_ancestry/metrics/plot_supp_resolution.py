@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Supplementary figure: fine-mapping resolution and its agreement with the benchmark, 193 loci.
 
-Denominator (Qin): the loci the benchmark (Yuan et al.) resolved to a lead with PIP > --pip (default 0.5; 41 loci).
+Denominator: the loci the benchmark (Yuan et al.) resolved to a lead with PIP > --pip (default 0.5; 41 loci).
 Each method's bar splits those loci by its own top credible-set variant: the same variant at PIP > --pip (solid), a
 different variant at PIP > --pip (hatched), or not resolved (grey). v2, no-palindromic, credible-set members only (as Fig. 1b/2d).
   python3 plot_supp_resolution.py --out figures/v2/supp_resolution_pip05.png
@@ -41,7 +41,7 @@ def main():
     b = pd.read_csv(BENCH, dtype={"rsid": str})
     b = b[b.locus.isin(full)]
     bt = b.loc[b.groupby("locus").pip.idxmax()].set_index("locus")
-    conf_b = bt[bt.pip > a.pip]                  # the benchmark's confidently resolved loci: the denominator (Qin)
+    conf_b = bt[bt.pip > a.pip]                  # the benchmark's confidently resolved loci: the denominator
     n = len(conf_b)
 
     rows, extra = [], []

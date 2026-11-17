@@ -4,7 +4,7 @@
 Three published analyses of the PGC3-SCZ trans-ancestry meta-analysis with in-sample LD --
 PGC-FINEMAP (Trubetskoy et al. 2022, ST11d), Mawson et al. 2026 FINEMAP and SuSiE -- scored
 against the same SuSiEx benchmark as Fig. 1, next to our FINEMAP and SuSiE-RSS on the merged
-reference LD. Capacity is matched to the published runs (Qin, 2026-10-05): k = 5 / L = 5. Our
+reference LD. Capacity is matched to the published runs: k = 5 / L = 5. Our
 FINEMAP primary run already is k = 5; our SuSiE-RSS is the v2 L = 5 sweep run, NOT the L = 10
 primary of Fig. 1, which deliberately keeps each tool's default.
 

@@ -16,7 +16,7 @@ The rule, unchanged from `manuscript_check/hierarchy_v3_gws_confident.py`:
   4. `exact` = same variant. `ld_match` = exact OR r2 > 0.95 to it. `ld_match` is the
      manuscript's headline; `exact` is reported alongside as the ordering check.
 
-NO GWS FILTER, AND THAT IS NOW THE CORRECT CHOICE (Qin, 2026-09-24). The published
+NO GWS FILTER, AND THAT IS NOW THE CORRECT CHOICE. The published
 82.8/76.2/71.3/63.9/56.6% figures applied a "drop any credible set with no genome-wide
 significant member" filter to OUR credible sets, as our reconstruction of Yuan et al.'s own
 procedure. With their full output now in hand (`analysis/benchmark_susiex_yuan/`) that filter
@@ -199,7 +199,7 @@ MERGED_ARMS = {"SuSiE-merged", "FINEMAP-merged", "RSparsePro", "CARMA"}
 # set, the same stratum the variant-level figures use. Needed because the 13 variants with
 # benchmark PIP > 0.9 do not all fall inside the 122 (one locus has >=2 benchmark CSs).
 STRATA = {"122": "loci_confident122.txt", "175": "loci_single175.txt", "193": None}
-# Ran's grouping, same order as the CS-split figure so the two read together.
+# The grouping, same order as the CS-split figure so the two read together.
 # SuSiEx-noambig (Task B33) is the ambiguous-free rerun; it sits next to SuSiEx-ours so
 # the two can be read against each other, and is simply absent when B33 has not been
 # exported.
@@ -230,7 +230,7 @@ def main():
                          "does not reproduce.")
     ap.add_argument("--drop-palindromic", action="store_true",
                     help="drop A/T and C/G variants from OUR side before scoring, so we are "
-                         "judged on the same variant domain the benchmark had. Kai's SuSiEx "
+                         "judged on the same variant domain the benchmark had. Yuan et al.'s SuSiEx "
                          "input was a 'SumStats.noAmbig' directory -- ambiguous SNPs were "
                          "stripped upstream -- and our set minus palindromic reproduces his "
                          "EXACTLY at all 193 loci (146,698 = 146,698). Without this an arm "
@@ -244,7 +244,7 @@ def main():
                          "arm's input. Where the lead IS present, the arm saw it, weighed it "
                          "and preferred something else -- scoring that as recovery credits "
                          "the method for a choice it did not make. This is the correction "
-                         "that stops merged LD being inflated (Qin, 2026-09-25).")
+                         "that stops merged LD being inflated.")
     ap.add_argument("--no-proxy-rescue", action="store_true",
                     help="score exact matches only, no r2>0.95 proxies")
     ap.add_argument("--suffix", default="-noambig", help="export label suffix, e.g. --suffix=-noambig for task_v2_out/noambig")

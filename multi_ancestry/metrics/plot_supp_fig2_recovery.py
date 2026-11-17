@@ -95,7 +95,7 @@ def main():
                 gm = M[garms].mean(axis=1).mean()
                 ax.plot([at - 0.44, at + len(garms) - 1 + 0.44], [gm] * 2, color=INK,
                         lw=2.0, ls=(0, (4, 2)), zorder=6)
-                # group name and mean under the group, below the tick labels, as in Fig. 1c (Qin)
+                # group name and mean under the group, below the tick labels, as in Fig. 1c
                 ax.annotate(f"{gname}\nmean {gm:.1%}", (at + (len(garms) - 1) / 2, -0.205),
                             xycoords=("data", "axes fraction"), ha="center", va="top",
                             fontsize=10.5, color=INK)

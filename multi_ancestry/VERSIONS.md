@@ -27,7 +27,7 @@ from the latest release**, so "use the latest" changes no binary or package for 
 
 - **FINEMAP was v1.4.2 throughout, not v1.4.1 (B28 was wrong).** v1.4.2 prints `v1.4.2` on
   stdout but writes `Welcome to FINEMAP v1.4.1` into its `.log_sss` file; the binary contains
-  both strings. B28 read the file banners. The surviving stdout captures (`head_node` qcexcl
+  both strings. B28 read the file banners. The surviving stdout captures (qcexcl
   `.finemap.log`) and every install record say v1.4.2.
 - **FINEMAP `--n-conv-sss` defaults to 100 in both versions, not 1000.** Both binaries' `--help`
   says "Default is 1000", but both run with 100 when the flag is omitted (SETTINGS block, their

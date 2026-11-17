@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Variant counts by stage, for each of the three input pipelines.
 
-Qin, 2026-09-28: a picture of `variant_domain_counts.md`, to track where variants are lost
+2026-09-28: a picture of `variant_domain_counts.md`, to track where variants are lost
 and how much of each stage is palindromic.
 
 Form: horizontal stacked bars, one row per stage, one panel per pipeline, length = variants.
@@ -11,7 +11,7 @@ separate "after ambiguous-free rerun" row: that number IS the non-palindromic co
 (228,205 - 34,620 = 193,585, and so on), so a fourth bar per pipeline drew the same
 quantity twice.
 
-THE STAGE PANELS ARE GREY ON PURPOSE (Qin). Their hues would otherwise be PALETTE[0..2],
+THE STAGE PANELS ARE GREY ON PURPOSE. Their hues would otherwise be PALETTE[0..2],
 which already mean MultiSuSiE, MESuSiE and SuSiEx in every other figure -- an input
 pipeline tinted like an arm invites exactly the wrong reading. Only the per-arm panel uses
 the arm palette, where those hues mean what they always mean.
@@ -30,7 +30,7 @@ SNP_ID, so two variants with a blank MarkerName survive only in v2-union -- but 
 in 153,980 is 0.001%, invisible at this width, and two bars would imply a difference the
 reader can see. The caption carries the distinction instead.
 
-Kai Yuan's domain is a dashed rule rather than a bar: it is a different pipeline's endpoint,
+Yuan et al.'s domain is a dashed rule rather than a bar: it is a different pipeline's endpoint,
 not a stage of ours, and drawing it as a bar in our stack would imply a lineage it does not
 have.
 
@@ -87,7 +87,7 @@ PIPELINES = [
 # Panel 4: what each arm actually fitted. The three panels above are organised by INPUT
 # pipeline, and MultiSuSiE has no row in any of them -- its domain is the union of both
 # ancestries' valid sets restricted to LD present in EVERY ancestry
-# (harmonize_loci_v2_union.py:203-208), a fourth lineage. Qin could not find its number,
+# (harmonize_loci_v2_union.py:203-208), a fourth lineage. We could not find its number,
 # which is the point of this panel: every arm, its own count, in the per-arm colours the
 # rest of the figures use.
 ARMS = [
@@ -101,7 +101,7 @@ ARMS = [
     ("EUR-FINEMAP",    228_205, 34_620, "EUR panel only"),
     ("EUR-SuSiE-RSS",  228_205, 34_620, "EUR panel only"),
 ]
-# "et al." in italic (Qin), bold to match every other label: mathtext's italic slot is pointed at DejaVu Sans bold italic
+# "et al." in italic, bold to match every other label: mathtext's italic slot is pointed at DejaVu Sans bold italic
 plt.rcParams.update({"mathtext.fontset": "custom", "mathtext.it": "DejaVu Sans:italic:bold"})
 YUAN = r"Benchmark (Yuan $\mathit{et\ al.}\!$)"
 KAI = 231_272          # his union across the 250 loci, zero palindromic
@@ -149,9 +149,9 @@ AXIS_END = 232_000
 
 
 def _pal_label(ax, x, y, pal, tot):
-    """Palindromic count with its percentage in parentheses, on one line (Qin).
+    """Palindromic count with its percentage in parentheses, on one line.
 
-    Set in regular weight, unlike every other number here. That is partly what Qin asked
+    Set in regular weight, unlike every other number here. That is partly what was requested
     for and partly what makes it fit: at 5.4pt regular the string is ~0.60 in against
     ~0.69 in of room in the NARROWEST pale segment (MESuSiE / EAS harmonised, 23,650
     variants). Bold, or a point larger, overflows there -- which is also why the figure
@@ -260,7 +260,7 @@ def main():
 
 def arms_only(args):
     """Fig 1A inset: the seven trans-ancestry arms' fitted domains (EUR-only arms are out of the primary analysis).
-    The sumstats and LD-panel counts are in Qin's flowchart, so only the per-arm block is drawn here."""
+    The sumstats and LD-panel counts are in the hand-drawn flowchart, so only the per-arm block is drawn here."""
     arms = [r for r in ARMS if r[0] not in EUR_ONLY]
     fig, ax = plt.subplots(figsize=(7.4, 3.7), dpi=300)
     ya = list(range(len(arms)))[::-1]
@@ -277,7 +277,7 @@ def arms_only(args):
         ax.annotate(f"{tot:,}", (TOTAL_X, yi), va="center", ha="left", fontsize=9.0, color=INK)
         ax.annotate(lineage, (2600, yi), va="center", ha="left", fontsize=7.2, color="white")
     ax.axvline(KAI, color=INK_MUTED, lw=1.1, ls="--", zorder=1)
-    # starts at the line and runs right (Qin)
+    # starts at the line and runs right
     ax.annotate(YUAN + f"  {KAI:,}", (KAI, 1.0), xycoords=("data", "axes fraction"), xytext=(3, 0),
                 textcoords="offset points", ha="left", va="bottom", fontsize=8.4, color=INK_MUTED)
     ax.set_yticks(ya)

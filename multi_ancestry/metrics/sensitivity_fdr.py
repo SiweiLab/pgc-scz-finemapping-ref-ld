@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Credible-set-free sensitivity/FDR curves against a published benchmark.
 
-Implements the metric Ran Cui asked for (PROJECT_PLAN_ran_round.md sec 1.3):
+Implements the metric requested in co-author review:
 
   sensitivity(t) = of variants the BENCHMARK puts above t, the fraction the
                    comparator also puts above t
@@ -207,7 +207,7 @@ def curve(bench, comp, thresholds, noise_threshold, bench_threshold=None, proxy_
 
     Two modes, and the choice matters (see PROGRESS_LOG / plan sec 1.3):
 
-    bench_threshold=None -- "matched sweep", Ran's literal spec: the SAME t gates
+    bench_threshold=None -- "matched sweep", the requested spec: the SAME t gates
       both sides. The benchmark's positive set therefore SHRINKS as t rises, so
       the sensitivity denominator moves with the numerator and the parametric
       curve is NOT monotone -- it doubles back on itself and is hard to read.
@@ -325,7 +325,7 @@ def main():
                          "--noise-threshold below this is not computable (default 0.1)")
     ap.add_argument("--benchmark-threshold", type=float, default=None,
                     help="pin the benchmark's positive set at this PIP and sweep only the "
-                         "comparator (recommended, gives monotone curves). Omit for Ran's "
+                         "comparator (recommended, gives monotone curves). Omit for the "
                          "literal matched sweep, where both sides move together.")
     ap.add_argument("--no-restrict-to-benchmark-loci", action="store_true",
                     help="score every locus, including those the benchmark never covers. "

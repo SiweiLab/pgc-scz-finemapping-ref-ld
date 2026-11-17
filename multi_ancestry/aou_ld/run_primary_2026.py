@@ -4,7 +4,7 @@
 **STATUS: verified in B30** (dry run checked against every runner, guards fired, ten-arm
 smoke test at ATP2A2 -- aou_ld/PROGRESS_LOG.md). Drafted on the laptop; B30 fixed the
 plumbing defects the dry run exposed (RSparsePro input format, FINEMAP masters pointing at
-the old cluster, EUR-SuSiE-RSS's shared output file, wrong output
+an earlier cluster, EUR-SuSiE-RSS's shared output file, wrong output
 targets). The EUR arms' FINEMAP-format .z/.ld are rebuilt per locus from ld_per_anc_eur +
 eur_sumstats rather than stored as a text copy of the LD and moved every tool into one conda env (envs/ilae4_finemap.yml).
 
@@ -46,6 +46,7 @@ import concurrent.futures as cf
 import csv
 import json
 import os
+WORKSPACE_BUCKET = os.environ.get("WORKSPACE_BUCKET", "gs://YOUR-WORKSPACE-BUCKET")  # AoU Workbench sets this
 import subprocess
 import sys
 import threading
@@ -84,7 +85,7 @@ EUR_SS = f"{INPUTS}/eur_sumstats"             # {l}_sumstats.tsv.gz        (EUR 
 # build_finemap_input_gctb.py wants {l}_ukb_R.npz / _ukb_snps.txt.gz; ld_per_anc_eur holds the
 # same bytes as {l}_R.npz / _snps.txt.gz (B28), so the prep step symlinks them under these names.
 EUR_LD_UKBNAMES = f"{INPUTS}/ld_per_anc_eur_ukbnames"
-# MultiSuSiE reads the npz tree named here. v2: censored on the both-LD domain (Qin, 2026-09-30,
+# MultiSuSiE reads the npz tree named here. v2: censored on the both-LD domain (2026-09-30,
 # B54): a variant missing z in one ancestry gets z = 0 and a zero R row/col there, per the
 # library's z-path contract, instead of v1's fitted-as-observed z = 0.
 MULTISUSIE_NPZ = UNION
@@ -93,7 +94,7 @@ if V2:
     UNION, INTERSECT, MERGED = f"{V2}/union", f"{V2}/intersect", f"{V2}/merged"
     MULTISUSIE_NPZ, EUR_V2 = f"{V2}/union_censored_bothld", f"{V2}/eur"
 
-BUCKET = "gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09"
+BUCKET = f"{WORKSPACE_BUCKET}/manuscript_final_2026-09"
 BUCKET_LD = f"{BUCKET}/ld_matrices"
 BUCKET_EUR_SS = f"{BUCKET}/PGC_SCZ_sumstats/eur_sumstats"
 FINEMAP_INPUT_BUILDER = os.path.join(FM_DIR, "finemap", "build_finemap_input_gctb.py")
@@ -523,22 +524,22 @@ def run_one(arm, locus):
     return arm, locus, "ok", f"{dt:.1f}s"
 
 
-# Outputs go under the manuscript bucket's own layout (Qin, B30), next to the earlier runs in
+# Outputs go under the manuscript bucket's own layout, next to the earlier runs in
 # fine_mapping_runs/. `_inputs/` is excluded: it holds symlinks to ld_matrices/ (rsync would
 # follow them and duplicate the LD) and derived dumps that the prep step rebuilds.
-BACKUP_DEFAULT = ("gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/"
+BACKUP_DEFAULT = (f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/"
                   "fine_mapping_runs/primary_2026-09")
 BACKUP_EXCLUDE = r"(^|.*/)_inputs/.*"
 
 
-BACKUP_V2_DEFAULT = ("gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/"
+BACKUP_V2_DEFAULT = (f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/"
                      "fine_mapping_runs/primary_v2_2026-09")
 
-BACKUP_SWEEP_DEFAULT = ("gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/"
+BACKUP_SWEEP_DEFAULT = (f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/"
                         "fine_mapping_runs/l_sweep_2026-09")
 
 
-BACKUP_COV_DEFAULT = ("gs://dataproc-staging-wb-buoyant-lentil-3458/manuscript_final_2026-09/"
+BACKUP_COV_DEFAULT = (f"{WORKSPACE_BUCKET}/manuscript_final_2026-09/"
                       "fine_mapping_runs/cov095_2026-10")
 
 

@@ -55,7 +55,7 @@ from plot_sensitivity_fdr import INK, INK_MUTED, GRID
 ABSENT = "#D8D8D8"
 # Single-hue sequential ramp (the validated reference palette's blue, steps 100 -> 700, from a near-white start so a
 # PIP near 0 still reads as a value, distinct from the grey "absent" cell). Lightness alone carries the value, so it is
-# colour-blind safe; replaced matplotlib's Purples (Qin, 2026-10-01).
+# colour-blind safe; replaced matplotlib's Purples.
 from matplotlib.colors import LinearSegmentedColormap
 RAMP = LinearSegmentedColormap.from_list("blue_seq", ["#f4f8fd", "#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#2a78d6",
                                                       "#1c5cab", "#104281", "#0d366b"])
@@ -95,7 +95,7 @@ def main():
     bench_pip = dict(zip(top.locus, top.pip.astype(float)))
 
     P = pd.read_csv(args.per_locus)
-    # EUR-only arms are out of the primary analysis (Qin, 2026-09-28)
+    # EUR-only arms are out of the primary analysis
     arms = [a for a in RAN_ORDER if a in set(P.arm) and a not in EUR_ONLY]
     ncs = P.set_index(["arm", "locus"]).n_cs.to_dict()
 
@@ -114,13 +114,13 @@ def main():
         seen[a] = {l: set(g.bp.astype(int)) for l, g in d.groupby("locus")}
         m = d[d.cs_ids_all.notna()]
         incs[a] = {(l, int(bp)) for l, bp in zip(m.locus, m.bp.astype(int))}
-        # the arm's own top variant per locus, among its CREDIBLE-SET members only (Qin): a
+        # the arm's own top variant per locus, among its CREDIBLE-SET members only: a
         # high PIP the arm never put in a set is not a call. Ties with the lead count as the lead
         armtop[a] = m.groupby("locus").pip.max().to_dict()
 
     # the benchmark is column 0, so its PIP is read on the same colour scale as ours
     # instead of sitting in the row label as a bracketed number
-    # "1.00" printed as "1" (Qin, 2026-10-05); everything else two decimals, no leading zero
+    # "1.00" printed as "1"; everything else two decimals, no leading zero
     def fmt(v):
         t = f"{v:.2f}"
         return "1" if t == "1.00" else t.lstrip("0")
@@ -130,7 +130,7 @@ def main():
     txt = [["" for _ in cols] for _ in loci]
     for i, l in enumerate(loci):
         M[i, 0] = bench_pip[l]
-        # the benchmark gets § on the same rule as our arms (chr18: three sets) (Qin)
+        # the benchmark gets § on the same rule as our arms (chr18: three sets)
         txt[i][0] = fmt(bench_pip[l]) + ("" if bench_ncs.get(l, 0) == 1 else MARK_NO_SINGLE_CS)
         for j, a in enumerate(arms, start=1):
             bp = lead_bp[l]
@@ -158,7 +158,7 @@ def main():
         c, s0, s1 = l.split("_")
         loclab.append(f"{c}:{int(s0)/1e6:.1f}–{int(s1)/1e6:.1f} Mb   {lead[l]}")
     txt0 = txt                      # locus-major, for the printout below
-    if args.transpose:   # methods as rows (benchmark on top), loci as columns (Qin)
+    if args.transpose:   # methods as rows (benchmark on top), loci as columns
         M = M.T
         txt = [list(r) for r in zip(*txt)]
     nr, nc = M.shape
@@ -172,7 +172,7 @@ def main():
     for i in range(nr):
         for j in range(nc):
             # absent (NaN) is masked in imshow, so it shows as a blank cell of exactly the
-            # same size; no patch, whose edge stroke would spill into the neighbours (Qin)
+            # same size; no patch, whose edge stroke would spill into the neighbours
             ax.annotate(txt[i][j], (j, i), ha="center", va="center", fontsize=8.5,
                         color="white" if (not np.isnan(M[i, j]) and M[i, j] > 0.62)
                         else INK, zorder=4)
@@ -203,7 +203,7 @@ def main():
 
     class _Key(HandlerPatch):
         """Draw the key in the handle column -- a mark symbol, or the dash for an absent lead -- so every
-        label starts at the same x (Qin)."""
+        label starts at the same x."""
         def __init__(self, sym, cell=False):
             super().__init__()
             self.sym, self.cell = sym, cell
@@ -226,7 +226,7 @@ def main():
     h = [mpatches.Patch(label=lab) for _, lab, _ in keys]
     ax.legend(handles=h, handler_map={hh: _Key(sym, cell) for hh, (sym, _, cell) in zip(h, keys)}, frameon=False,
               fontsize=11, labelcolor=INK, ncol=1, loc="upper left",
-              # transposed: one key per line to the right of the colourbar (Qin); otherwise under the grid
+              # transposed: one key per line to the right of the colourbar; otherwise under the grid
               bbox_to_anchor=(1.115, 1.0) if args.transpose else (0.0, -0.012), handlelength=1.0, handletextpad=0.5)
 
     note = (

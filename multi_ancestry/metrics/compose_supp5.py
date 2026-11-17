@@ -6,6 +6,7 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 
 from paths import V2 as D
+from paths import bold_font
 PANELS = [("a", "supp_Lsweep_pr_inCS.png", "Credible-set members scored (as Fig. 1b)"),
           ("b", "supp_Lsweep_pr_allvar.png", "All variants scored")]
 HEAD, GAP, PAD = 190, 90, 50
@@ -17,8 +18,8 @@ W = max(i.size[0] for i in ims) + 2 * PAD
 H = sum(i.size[1] + HEAD for i in ims) + GAP * (len(ims) - 1) + 2 * PAD
 fig = Image.new("RGB", (W, H), "white")
 d = ImageDraw.Draw(fig)
-fb = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 140)
-ft = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 80)
+fb = bold_font(140)
+ft = bold_font(80)
 y = PAD
 for (lab, _, txt), im in zip(PANELS, ims):
     d.text((PAD, y), lab, font=fb, fill="black")

@@ -31,7 +31,7 @@ SuSiEx-ours arm, so it is labelled SuSiEx-nomultistep and never reads the primar
 The two exceptions the brief names:
   * MACHINE returns fit@CL as an M x K matrix, one column per ancestry. Its pip file carries the
     standard columns with `pip` left EMPTY, plus CL_EUR and CL_EAS: the runner's pooled `CL`
-    column is a row max, and how to aggregate is Qin's call. MACHINE's fit@CS was never
+    column is a row max, and how to aggregate is a judgement call. MACHINE's fit@CS was never
     written to disk (run_machine_diag_b29.R keeps only its length), so it has no cs_purity file.
   * CARMA: membership from `Credible set` (rho-based), not `Credible model`
     (PRIMARY_RUN_PLAN 4.2). Indices are 1-based rows of the arm's own z file, which is also

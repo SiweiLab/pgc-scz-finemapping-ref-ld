@@ -33,7 +33,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# every label bold (Qin): ticks and legends inherit font.weight
+# every label bold: ticks and legends inherit font.weight
 plt.rcParams.update({"font.weight": "bold", "axes.labelweight": "bold",
                      "axes.titleweight": "bold"})
 import matplotlib.lines as mlines
@@ -48,7 +48,7 @@ from plot_sensitivity_fdr import INK, INK_MUTED, GRID
 
 MARKS = [0.1, 0.5, 0.9]
 # The 122 stratum is defined with >= 0.1 (derive_confident_stratum.py:81) but is LABELLED
-# as > 0.1 everywhere, per Qin, for one consistent form across the figures. The two are the
+# as > 0.1 everywhere, for one consistent form across the figures. The two are the
 # same 122 loci: the lowest max PIP among the 122 is 0.1006 and the highest among the 53
 # excluded is 0.0973, so no locus sits on the boundary.
 # two lines: on one line the 193 title ran into the 175 panel's title
@@ -82,7 +82,7 @@ def main():
     ap.add_argument("--pr", action="store_true",
                     help="plot precision (1 - FDR) against recall (= sensitivity) instead "
                          "of FDR against sensitivity, and label each arm with its AUPRC. "
-                         "Same numbers, the orientation Ran asked for (MultiSuSiE Fig 2c).")
+                         "Same numbers, the requested orientation (MultiSuSiE Fig 2c).")
     ap.add_argument("--caption", action="store_true",
                     help="print the caption under the figure; default writes it to a "
                          "sidecar .txt so captions live in one place")
@@ -91,7 +91,7 @@ def main():
     ap.add_argument("--s-flag", type=float, default=None,
                     help="drop every locus whose z/LD mismatch s (susieR estimate_s_rss with n, B70 "
                          "s_susier_per_ancestry.csv) exceeds this in EITHER ancestry -- one uniform "
-                         "rule, applied to all loci (Ran round 3)")
+                         "rule, applied to all loci (review round 3)")
     ap.add_argument("--s-table", default=os.path.join(here, "..", "aou_ld", "task_b70_out",
                                                       "s_susier_per_ancestry.csv"))
     ap.add_argument("--s-col", default="s_susier_n",
@@ -245,7 +245,7 @@ def main():
         ax.set_xlabel("Recall" if args.pr else "Sensitivity", fontsize=14.5, color=INK)
         ax.tick_params(labelbottom=True)
         st_ = strata[list(axes).index(ax)]
-        # precision-recall legends rank methods by AUPRC, high to low (Ran); ties keep method order
+        # precision-recall legends rank methods by AUPRC, high to low; ties keep method order
         leg_arms = sorted(arms, key=lambda a: -round(A[(st_, a)][0], 2)) if args.pr else arms
         h = [mlines.Line2D([], [], color=ARM_HUE[a], lw=1.9,
                            ls="--" if a in EUR_ONLY else "-",

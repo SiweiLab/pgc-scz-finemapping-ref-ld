@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sensitivity and false discovery against the PIP threshold, one panel each.
 
-Ran asked for a sensitivity-versus-FDR curve. We built one and dropped it: FDR is a
+We were asked for a sensitivity-versus-FDR curve. We built one and dropped it: FDR is a
 ratio whose numerator and denominator both shrink with the threshold, so the parametric
 curve is non-monotone and folds back on itself, and at these sample sizes most of its
 apparent shape is a handful of variants changing state. Plotting each metric against
@@ -33,7 +33,7 @@ SERIES_COLOR = {
     "SuSiE-merged":   PALETTE[3],
     "FINEMAP-merged": PALETTE[4],
 }
-# The order the arms appear in every figure and legend (Qin, 2026-09-18): the three
+# The order the arms appear in every figure and legend: the three
 # ancestry-aware arms first, then the two merged-LD ones, so the grouping the paper argues
 # about is the grouping the eye sees. Colour stays bound to the arm above, never to its
 # position, so this ordering never repaints anything.
@@ -88,7 +88,7 @@ def colour_for(method, order):
 def plot_vs_threshold(d, out, title):
     """Companion: each metric against the threshold directly.
 
-    The sensitivity-vs-FDR curve is what Ran asked for, but FDR is a ratio whose
+    The sensitivity-vs-FDR curve is what was requested, but FDR is a ratio whose
     numerator and denominator both shrink with the threshold, so it is not monotone
     and the parametric curve saws back and forth. Plotting each metric against the
     threshold separately is monotone, uncluttered, and lets a reader pick an
@@ -123,7 +123,7 @@ def plot_vs_threshold(d, out, title):
     if "benchmark" in d.columns:
         r = d.iloc[0]
         bt = r["benchmark_threshold"]
-        mode = ("both sides gated at the same threshold (Ran's matched sweep)"
+        mode = ("both sides gated at the same threshold (the matched sweep)"
                 if pd.isna(bt) else f"benchmark positives fixed at PIP>{bt:g}")
         note = (f"Ground truth: {r['benchmark']} only — {int(r['benchmark_loci'])} loci, "
                 f"{mode}, noise below {r['noise_threshold']:g}; "

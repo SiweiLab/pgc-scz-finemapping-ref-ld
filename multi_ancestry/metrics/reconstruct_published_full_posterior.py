@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Rebuild the published SuSiEx posterior in full, from Kai Yuan's per-locus output.
+"""Rebuild the published SuSiEx posterior in full, from Yuan et al.'s per-locus output.
 
 Why this exists: Suppl. Table 27 is doubly filtered -- variants with PIP>0.1 *and* in a
 purity-surviving credible set -- which left 389 variants over 136 loci and made the
 metric's FDR term uninterpretable (every counted false discovery was an absence, because
 "listed but below the noise floor" cannot exist in a table truncated at 0.1).
 
-Kai shared the run's own per-locus output (2026-09-11). The `.snp` files carry per-
+The SuSiEx authors shared the run's own per-locus output (2026-09-11). The `.snp` files carry per-
 population log Bayes factors per credible set, from which the single-effect alpha vectors
 follow exactly:
 
@@ -40,7 +40,7 @@ METHOD = "SuSiEx-published-full"
 
 # Yuan et al. trimmed PGC's chr15 window to the observed variant extent (343 bp off the
 # start, 668 off the end). Verified 2026-09-11: our 384 rows for this locus span exactly
-# Kai's boundaries, so the two ids name the same locus with the same variants. Aliased
+# Yuan et al.'s boundaries, so the two ids name the same locus with the same variants. Aliased
 # rather than renamed -- renaming would touch nine arms' committed vectors for no gain.
 LOCUS_ALIAS = {"chr15_34646330_34663925": "chr15_34645987_34664593"}
 

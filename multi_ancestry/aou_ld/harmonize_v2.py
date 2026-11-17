@@ -16,7 +16,7 @@ run_primary_2026.py only needs its paths pointed here:
                                           variant without z or LD has z = 0, R row/col = 0
   OUT/union_censored_bothld/...npz        sensitivity: censored on the both-LD domain, so
                                           (vs union/) censoring alone, (vs union_censored/) the
-                                          extra variants alone (option C, Qin 2026-09-30)
+                                          extra variants alone (option C, 2026-09-30)
   OUT/intersect/{l}.{EUR,EAS}.{ma,ld.gz} {l}.snps.tsv                                  MESuSiE
   OUT/merged/{l}.z {l}.ld                 SuSiE-merged, FINEMAP-merged, RSparsePro, CARMA
   OUT/eur/{l}.z {l}.ld {l}.master {l}_snps.txt.gz                   EUR-SuSiE-RSS, EUR-FINEMAP

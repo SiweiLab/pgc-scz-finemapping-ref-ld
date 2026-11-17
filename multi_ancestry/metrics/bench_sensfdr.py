@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sensitivity / FDR of fine-mapping runs against a fixed published benchmark.
 
-Design settled with Qin 2026-09-21. The three decisions that shape it:
+Design settled 2026-09-21. The three decisions that shape it:
 
   * **No noise floor.** FDR(t) = |S_C(t) \\ P_B| / |S_C(t)| -- every call outside the
     benchmark's positive set is a false discovery. This is exactly 1 - precision, and it
@@ -77,7 +77,7 @@ def run_catalog():
     # fix). RSparsePro-merged and RSparsePro-EUR are NOT on matched inputs -- B16 rebuilt only
     # the merged arm on the corrected finemap_in_rebuilt; RSparsePro-EUR still reads the
     # original native single-ancestry build. Both the original merged export and the rebuilt
-    # one are included below, unreduced, so this does not silently pick one for Qin.
+    # one are included below, unreduced, so this does not silently pick one.
     R.append(("RSparsePro", "../aou_ld/task_b27_out/rsparsepro_pip_vectors_keyed.csv.gz",
               "RSparsePro-merged", 10, np.nan, "merged"))
     R.append(("RSparsePro", "../aou_ld/task_b27_out/rsparsepro_merged_rebuilt_pip_vectors_keyed.csv.gz",

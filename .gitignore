@@ -1,0 +1,13 @@
+# Restricted or third-party inputs: never commit (see multi_ancestry/inputs/README.md)
+multi_ancestry/inputs/202.EUR_ASN.SuSiEx_spec/
+multi_ancestry/inputs/*.xlsx
+multi_ancestry/metrics/pip_vectors_susiex_published_full.csv.gz
+# All of Us individual-level data and derived LD stay on the Researcher Workbench
+*_ids.incl
+*exclude_samples*
+**/ld_per_anc_*/
+**/ld_v2/
+# Python / OS
+__pycache__/
+*.pyc
+.DS_Store
