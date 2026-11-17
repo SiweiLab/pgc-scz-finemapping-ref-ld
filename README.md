@@ -1,7 +1,7 @@
 # Reference LD for multi-ancestry fine-mapping: an empirical benchmark
 
 Code for *An empirical benchmark of reference linkage disequilibrium for multi-ancestry fine-mapping*
-(He, Yuan, Zhao, Huang, Neale, Cui & Chen; submitted to *Nature Genetics*).
+(He, Yuan, Zhao, Huang, Neale, Cui & Chen).
 
 We fine-mapped 250 PGC3 schizophrenia loci with reference LD instead of in-sample LD, and scored the results against the
 published in-sample SuSiEx analysis of Yuan *et al.* (2024).
