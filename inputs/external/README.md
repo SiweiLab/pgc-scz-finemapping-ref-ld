@@ -3,10 +3,10 @@
 Files the analysis reads that were not produced by this pipeline: the benchmark (Yuan *et al.*'s SuSiEx output) and three
 published supplementary tables.
 
-**Included for review only.** These files are in the repository while it is private. Before it is made public, each must
-be cleared for redistribution: the benchmark output by its authors, and the three tables under their publishers' licences.
-Any file that is not cleared is removed from the repository and its history, and readers download it from the source below
-under the name given.
+The benchmark output is redistributed with its authors' permission. The three published tables are **included for review
+only** while the repository is private: before it is made public each must be cleared under its publisher's licence, and
+any that is not is removed from the repository and its history, for readers to download from the source below under the
+name given.
 
 | File | What it is | Source | Read by |
 |---|---|---|---|
@@ -21,7 +21,7 @@ The tables derived from these (`inputs/loci_confident122.txt`, `results/benchmar
 ## The benchmark
 
 The benchmark is the full in-sample SuSiEx output of Yuan *et al.* 2024 for the PGC3-SCZ EUR + EAS analysis: the
-`.snp`, `.cs` and `.summary` files for all 250 loci, zipped as `yuan2024_susiex_output.zip` (shared by the authors;
+`.snp`, `.cs` and `.summary` files for all 250 loci, zipped as `yuan2024_susiex_output.zip` (shared, and redistributed here, with the authors' permission;
 the job script and logs are omitted). `figures/make_figures.sh` unpacks it to `202.EUR_ASN.SuSiEx_spec/` here
 (`figures/bench_sensfdr.py`, `BENCH_RAW`). The full per-variant posterior rebuilt from it by
 `benchmark/reconstruct_published_posterior.py` is `results/benchmark/pip_vectors_susiex_published_full.csv.gz`

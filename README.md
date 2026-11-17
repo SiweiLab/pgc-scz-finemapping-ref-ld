@@ -21,7 +21,7 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `benchmark/` | building the published benchmark tables the results are scored against |
 | `results/` | every committed output the figures are built from (below) |
 | `figures/` | figure and table code; `make_figures.sh` rebuilds them all into `figures/output/`; `hand_made/` holds the four hand-made inputs |
-| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output and three published tables (included for review; see its README) |
+| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output and three published tables (the tables for review only; see its README) |
 | `environment/` | conda environment spec, lock file, setup script, and tool versions (`VERSIONS.md`) |
 | `RUN_ORDER.md` | every step as it was run, with commands |
 
@@ -86,7 +86,7 @@ lists the few commands whose exact arguments were not recorded.
 | UK Biobank European LD (GCTB, 10,000 participants) | public, [distributed with GCTB](https://gctbhub.cloud.edu.au/data/SBayesRC/resources/GWFM/LD/Imputed13M/) |
 | PolyFun UK Biobank LD (sensitivity analysis) | public, `https://broad-alkesgroup-ukbb-ld.s3.amazonaws.com/UKBB_LD/` |
 | All of Us v9 genotypes and the LD derived from them | Controlled Tier; registered researchers only. Neither genotypes nor derived LD can leave the Workbench, so neither is included. The code to rebuild the LD is. |
-| Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | included for review (`inputs/external/yuan2024_susiex_output.zip`, `results/benchmark/`); redistribution pending the authors' approval |
+| Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | included, with the authors' permission (`inputs/external/yuan2024_susiex_output.zip`, `results/benchmark/`) |
 | Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | included for review in `inputs/external/`; from the publishers (links in its README), licences to be checked before release |
 
 No participant identifiers or individual-level data are included.
