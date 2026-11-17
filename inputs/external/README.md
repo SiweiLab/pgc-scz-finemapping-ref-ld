@@ -1,9 +1,14 @@
 # External inputs
 
-Files the analysis reads that were not produced by this pipeline. None of them is redistributed here:
-download each from its source and place it in this folder under the name given.
+Files the analysis reads that were not produced by this pipeline: the benchmark (Yuan *et al.*'s SuSiEx output) and three
+published supplementary tables.
 
-| Expected file | What it is | Source | Read by |
+**Included for review only.** These files are in the repository while it is private. Before it is made public, each must
+be cleared for redistribution: the benchmark output by its authors, and the three tables under their publishers' licences.
+Any file that is not cleared is removed from the repository and its history, and readers download it from the source below
+under the name given.
+
+| File | What it is | Source | Read by |
 |---|---|---|---|
 | `Trubetskoy2022_SupplementaryTable11.xlsx` | PGC3-SCZ FINEMAP results (ST11a–e); ST11d = marginal PIPs | Trubetskoy *et al.* 2022, *Nature* 604:502, Supplementary Table 11 (https://doi.org/10.1038/s41586-022-04434-5) | `figures/plot_supp_published_vs_ref.py`, `figures/plot_supp_published_benchmark.py` |
 | `Yuan2024_SupplementaryTables_MOESM4.xlsx` | Yuan *et al.* supplementary tables (`41588_2024_1870_MOESM4_ESM.xlsx`) | Yuan *et al.* 2024, *Nat. Genet.* 56:1841, Supplementary Tables (https://doi.org/10.1038/s41588-024-01870-z) | `benchmark/derive_confident_stratum.py` → `inputs/loci_confident122.txt` |
@@ -13,11 +18,14 @@ The tables derived from these (`inputs/loci_confident122.txt`, `results/benchmar
 `results/benchmark/mawson_susie_dedup.csv`) are included. `mawson_susie_dedup.csv` was extracted by hand from Mawson
 *et al.*'s SuSiE-RSS supplementary table (their media-5); see `benchmark/build_mawson_benchmark.py`.
 
-## Not included: the benchmark
+## The benchmark
 
-The benchmark is the full in-sample SuSiEx output of Yuan *et al.* 2024 for the PGC3-SCZ EUR + EAS analysis
-(`202.EUR_ASN.SuSiEx_spec`), together with the full per-variant posterior rebuilt from it
-(`pip_vectors_susiex_published_full.csv.gz`, made by `benchmark/reconstruct_published_posterior.py`).
-Both are **available from the authors of Yuan *et al.* on request**. Scripts expect the output at
-`inputs/external/202.EUR_ASN.SuSiEx_spec/` (`figures/bench_sensfdr.py`, `BENCH_RAW`) and the rebuilt posterior at
-`results/benchmark/pip_vectors_susiex_published_full.csv.gz` (`BENCH`); every concordance metric reads them.
+The benchmark is the full in-sample SuSiEx output of Yuan *et al.* 2024 for the PGC3-SCZ EUR + EAS analysis: the
+`.snp`, `.cs` and `.summary` files for all 250 loci, zipped as `yuan2024_susiex_output.zip` (shared by the authors;
+the job script and logs are omitted). `figures/make_figures.sh` unpacks it to `202.EUR_ASN.SuSiEx_spec/` here
+(`figures/bench_sensfdr.py`, `BENCH_RAW`). The full per-variant posterior rebuilt from it by
+`benchmark/reconstruct_published_posterior.py` is `results/benchmark/pip_vectors_susiex_published_full.csv.gz`
+(`BENCH`). Every concordance metric reads them.
+
+As run: SuSiEx 1.1, `--level=0.99 --pval_thresh=1`, n = 58,749 (EUR) and 14,425 (EAS), on their no-strand-ambiguous
+summary statistics and in-sample LD.

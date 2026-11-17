@@ -21,7 +21,7 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `benchmark/` | building the published benchmark tables the results are scored against |
 | `results/` | every committed output the figures are built from (below) |
 | `figures/` | figure and table code; `make_figures.sh` rebuilds them all into `figures/output/`; `hand_made/` holds the four hand-made inputs |
-| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` is where third-party inputs go (none redistributed; see its README) |
+| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output and three published tables (included for review; see its README) |
 | `environment/` | conda environment spec, lock file, setup script, and tool versions (`VERSIONS.md`) |
 | `RUN_ORDER.md` | every step as it was run, with commands |
 
@@ -40,7 +40,7 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `results/s_statistic/` | z/LD consistency s (susieR `estimate_s_rss`), per ancestry and per European panel | Supp Table 2; Supp Figs 8c, 10 |
 | `results/lambda_merged/` | SuSiE-RSS λ on the merged LD, per locus | Supp Tables 2, 3 |
 | `results/carma_outliers/` | variants CARMA flagged as inconsistent with the merged LD | Supp Table 3 |
-| `results/benchmark/` | published PIPs, the r² > 0.95 proxy map and the Mawson *et al.* tables (the full benchmark posterior is not included; see Data) | scoring throughout; Supp Figs 5, 6 |
+| `results/benchmark/` | published PIPs, the r² > 0.95 proxy map and the Mawson *et al.* tables and the full benchmark posterior | scoring throughout; Supp Figs 5, 6 |
 
 ## Pipeline design
 
@@ -65,7 +65,7 @@ OUT=/tmp/fig_check bash make_figures.sh     # writes to /tmp/fig_check; omit OUT
 ```
 
 This rebuilds every figure panel, composite and supplementary table from the committed exports, without refitting. Most
-outputs need the benchmark (below), and a few read the third-party tables listed in `inputs/external/README.md`.
+outputs need the benchmark, and a few read the published tables; both are in `inputs/external/` (see its README).
 Built that way, every output matched the figures and tables in the paper exactly (PNG pixels, CSV, XLSX cells).
 
 ## Rerunning the fine-mapping (All of Us Researcher Workbench)
@@ -86,8 +86,8 @@ lists the few commands whose exact arguments were not recorded.
 | UK Biobank European LD (GCTB, 10,000 participants) | public, [distributed with GCTB](https://gctbhub.cloud.edu.au/data/SBayesRC/resources/GWFM/LD/Imputed13M/) |
 | PolyFun UK Biobank LD (sensitivity analysis) | public, `https://broad-alkesgroup-ukbb-ld.s3.amazonaws.com/UKBB_LD/` |
 | All of Us v9 genotypes and the LD derived from them | Controlled Tier; registered researchers only. Neither genotypes nor derived LD can leave the Workbench, so neither is included. The code to rebuild the LD is. |
-| Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | available from the authors of Yuan *et al.* on request; not included |
-| Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | from the publishers; links in `inputs/external/README.md` |
+| Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | included for review (`inputs/external/yuan2024_susiex_output.zip`, `results/benchmark/`); redistribution pending the authors' approval |
+| Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | included for review in `inputs/external/`; from the publishers (links in its README), licences to be checked before release |
 
 No participant identifiers or individual-level data are included.
 

@@ -5,8 +5,8 @@
 #   bash make_figures.sh                    # writes figures/output/ (the default)
 #   OUT=/tmp/fig_check bash make_figures.sh # writes elsewhere
 #
-# External inputs, not distributed (see ../inputs/external/README.md):
-#   ../inputs/external/202.EUR_ASN.SuSiEx_spec/   Yuan et al. SuSiEx output (bench_sensfdr.BENCH_RAW; the 193 loci)
+# External inputs (see ../inputs/external/README.md):
+#   ../inputs/external/yuan2024_susiex_output.zip  Yuan et al. SuSiEx output, unpacked below (bench_sensfdr.BENCH_RAW; the 193 loci)
 #   ../results/benchmark/pip_vectors_susiex_published_full.csv.gz   rebuilt from it (bench_sensfdr.BENCH)
 #   ../inputs/external/*.xlsx                     Trubetskoy 2022 ST11, Mawson 2026 media-2
 # Outside the repo: Arial Bold (macOS) or matplotlib's DejaVu Sans Bold (paths.bold_font), for panel letters.
@@ -25,6 +25,9 @@ X=../results/finemap
 export FIG_OUT="$OUT"   # paths.py: every script that reads/writes the output folder uses this
 
 cp hand_made/* "$OUT/"
+
+# Yuan et al.'s SuSiEx output ships zipped; unpack it once
+[ -d ../inputs/external/202.EUR_ASN.SuSiEx_spec ] || unzip -q ../inputs/external/yuan2024_susiex_output.zip -d ../inputs/external/
 
 # ---------------------------------------------------------------- panels
 # Fig 1b (and ST1 AUPRC): in-CS precision-recall, 193 loci, no-palindromic

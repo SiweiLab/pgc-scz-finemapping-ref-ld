@@ -1,7 +1,5 @@
-# Restricted or third-party inputs: never commit (see inputs/external/README.md)
-inputs/external/*
-!inputs/external/README.md
-results/benchmark/pip_vectors_susiex_published_full.csv.gz
+# Unpacked from inputs/external/yuan2024_susiex_output.zip by figures/make_figures.sh
+inputs/external/202.EUR_ASN.SuSiEx_spec/
 # Rebuilt by pipeline/build_hg38_targets.py
 inputs/hg38_targets/
 # Built by figures/make_figures.sh
