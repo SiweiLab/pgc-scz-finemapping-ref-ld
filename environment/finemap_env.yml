@@ -1,0 +1,50 @@
+# Fine-mapping primary run (2026-09) -- one env for every tool.
+# Create with envs/setup_env.sh, which also installs what conda cannot hold:
+# the GitHub-only R packages at pinned commits (MESuSiE, MACHINE, CARMA), the SuSiEx
+# C++ build, RSparsePro's script, and the FINEMAP binary. Versions: ../VERSIONS.md.
+# A fully resolved export (every build) is written next to this file as
+# finemap_env.lock.yml by the setup script.
+name: finemap_env
+channels:
+  - conda-forge
+dependencies:
+  # R and the CRAN side
+  - r-base=4.5
+  - r-susier=0.14.2          # latest RELEASE; GitHub master 0.16.6 rewrites susie_rss (VERSIONS.md)
+  - r-data.table
+  - r-remotes
+  - r-r.utils
+  - r-dplyr
+  - r-ggplot2
+  - r-matrix
+  - r-mass
+  # MESuSiE @5a3dd32 imports
+  - r-cowplot
+  - r-ggrepel
+  - r-mixsqp
+  - r-nloptr
+  - r-progress
+  - r-r6
+  - r-tidyr
+  - r-rcpp
+  - r-rcpparmadillo
+  # MACHINE @f5abc5b imports
+  - r-rcppeigen
+  - r-foreach
+  - r-magrittr
+  - r-rspectra
+  # CARMA @856f0fb imports -- prebuilt RcppGSL is what made CARMA buildable
+  - r-glmnet
+  - r-rcppgsl
+  - gsl
+  # Python side: MultiSuSiE, RSparsePro, the driver and exports
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - pip
+  - git
+  - make
+  - cxx-compiler
+  - pip:
+      - "git+https://github.com/jordanero/MultiSuSiE@10351eb"

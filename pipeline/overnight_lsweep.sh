@@ -1,0 +1,74 @@
+#!/bin/bash
+# Unattended overnight chain: final export, then the L sweep of the six non-CARMA arms. Launch DETACHED:  setsid nohup bash overnight_lsweep.sh &> ~/work/overnight_lsweep.log &
+#   1. wait for both seeded chr3 CARMA fits to exit
+#   2. export the final v2 primary run, all 9 arms, both variants  -> results/finemap/{main,with_ambiguous}/   (check_exports.py inputs)
+#   3. L sweep of the six non-CARMA sweep arms, both variants (CARMA's sweep runs separately: overnight_lsweep_carma.sh)
+#      L = 1, 3: SuSiEx MultiSuSiE MESuSiE SuSiE-merged FINEMAP-merged RSparsePro
+#      L = 5:    the same minus FINEMAP-merged (its primary IS k = 5)
+#      L = 10:   SuSiEx (the sweep runs mult-step off, a different fit) and FINEMAP-merged
+#   4. export the sweep -> results/finemap/L_sweep[_with_ambiguous]/, write a machine summary
+#   5. check the bucket backups exist
+# Every setting comes from run_params through run_finemap.py; nothing is changed per locus. Failures are logged, never retried.
+set -u
+HERE="$(cd "$(dirname "$0")" && pwd)"; cd "$HERE"
+R="$HERE/../results/finemap"
+LOG=~/work/overnight_lsweep; mkdir -p "$LOG"
+say() { echo "[$(date -u +%FT%TZ)] $*" | tee -a "$LOG/steps.log"; }
+export LD_ROOT="${LD_ROOT:-$HOME/work/ld_matrices}"
+B=${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/l_sweep_v2_2026-10
+JOBS=7   # per driver; two drivers (one per variant) at a time on the n2-standard-16 master
+
+say "1. waiting for chr3 CARMA"
+while pgrep -f "run_carma.R.*chr3_48182866_53553354" > /dev/null || pgrep -f "run_finemap.py.*--loci chr3_48182866_53553354" > /dev/null; do sleep 300; done
+for V in noambig primary; do
+  f=~/work/primary_v2_$V/CARMA/chr3_48182866_53553354_carma_pip.tsv
+  [ -s "$f" ] && say "chr3 $V CARMA done: $(($(wc -l < $f)-1)) rows" || say "WARNING chr3 $V CARMA has NO output"
+done
+
+say "2. final export, 9 arms x 2"
+for V in noambig primary; do
+  HARMONIZED_INPUTS=~/work/v2_harmonized/$V python3 export_results.py &> "$LOG/export_$V.log" && say "export $V ok" || say "export $V FAILED"
+done
+
+say "3. L sweep, non-CARMA arms"
+run_L() {  # $1 = L, $2 = driver arms
+  for V in noambig primary; do
+    HARMONIZED_INPUTS=~/work/v2_harmonized/$V python3 run_finemap.py --arms "$2" --L "$1" --jobs $JOBS \
+        --backup-prefix "$B/$V" &> "$LOG/sweep_${V}_L$1.log" &
+  done
+  wait
+  say "sweep L=$1 done: $(grep -h -E '^\s+\S+\s+ok=' "$LOG"/sweep_*_L$1.log | tr -s ' ' | paste -sd ';')"
+}
+run_L 1  "SuSiEx,MultiSuSiE,MESuSiE,SuSiE-merged,FINEMAP-merged,RSparsePro"
+run_L 3  "SuSiEx,MultiSuSiE,MESuSiE,SuSiE-merged,FINEMAP-merged,RSparsePro"
+run_L 5  "SuSiEx,MultiSuSiE,MESuSiE,SuSiE-merged,RSparsePro"
+run_L 10 "SuSiEx,FINEMAP-merged"
+
+say "4. export the sweep"
+exp_L() {  # $1 = L, $2 = export labels
+  for V in noambig primary; do
+    HARMONIZED_INPUTS=~/work/v2_harmonized/$V python3 export_results.py --L "$1" --arms "$2" &> "$LOG/export_${V}_L$1.log" \
+      && say "export $V L=$1 ok" || say "export $V L=$1 FAILED"
+  done
+}
+exp_L 1  "SuSiEx-ours,MultiSuSiE,MESuSiE,SuSiE-merged,FINEMAP-merged,RSparsePro"
+exp_L 3  "SuSiEx-ours,MultiSuSiE,MESuSiE,SuSiE-merged,FINEMAP-merged,RSparsePro"
+exp_L 5  "SuSiEx-ours,MultiSuSiE,MESuSiE,SuSiE-merged,RSparsePro"
+exp_L 10 "SuSiEx-ours,FINEMAP-merged"
+
+python3 - "$R" > "$R/overnight_lsweep_summary.txt" <<'EOF'
+import glob, sys
+import pandas as pd
+R = sys.argv[1]
+print("file\trows\tloci\tpip>0.5\tpip>0.95")
+for f in sorted(glob.glob(f"{R}/*/primary_*_pip.csv.gz")):
+    d = pd.read_csv(f, usecols=["locus", "pip"])
+    print(f"{f}\t{len(d)}\t{d.locus.nunique()}\t{int((d.pip > 0.5).sum())}\t{int((d.pip > 0.95).sum())}")
+EOF
+cp "$LOG"/steps.log "$R/overnight_lsweep_steps.log"
+
+say "5. check backups"
+# (As run, the script committed these exports to the working repository here; omitted in this release.)
+for V in noambig primary; do say "bucket $V: $(gsutil ls "$B/$V/" 2>/dev/null | wc -l) arm dirs under $B/$V/"; done
+say "primary backup CARMA $(gsutil ls ${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/primary_v2_2026-09/noambig/CARMA/ 2>/dev/null | grep -c _carma_pip.tsv) noambig pip files"
+# (As run, the script then stopped the cluster; omitted in this release.)
