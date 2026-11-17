@@ -555,8 +555,9 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--arms", default=",".join(ARMS), help="comma-separated subset")
     ap.add_argument("--loci", default=None, help="comma-separated subset, else all 250")
-    ap.add_argument("--loci-file", default=os.path.expanduser(
-        "~/work/ref_inputs/loci_250_pgc3scz.tsv"))
+    ap.add_argument("--loci-file", default=os.path.join(SCRIPT_DIR, "v2_inputs", "loci_250_coords.tsv"),
+                    help="TSV with chr, start, stop per locus (default: the 250 PGC3-SCZ windows; as run, "
+                         "the same coordinates were read from the PGC3 locus table loci_250_pgc3scz.tsv)")
     ap.add_argument("--jobs", type=int,
                     default=int(os.environ.get("N_CONCURRENT", max(1, os.cpu_count() - 2))))
     ap.add_argument("--dry-run", action="store_true",

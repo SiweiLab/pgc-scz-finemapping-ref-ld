@@ -68,12 +68,12 @@ cp "$LOG"/steps.log task_v2_out/overnight_b61_steps.log
 
 say "5. commit, push, check backups, stop"
 cd "$REPO"
-git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out   # -f: exports are *.csv.gz, ignored by the global *.* rule
-git commit -q -m "B61 overnight (unattended): final v2 exports both variants (seeded CARMA incl. chr3) + L sweep of the six non-CARMA arms; see task_v2_out/overnight_b61_steps.log, _summary.txt" || say "nothing to commit"
-for i in 1 2 3; do git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping && { say "pushed $(git rev-parse --short HEAD)"; break; }; sleep 60; done
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out   # -f: exports are *.csv.gz, ignored by the global *.* rule
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git commit -q -m "B61 overnight (unattended): final v2 exports both variants (seeded CARMA incl. chr3) + L sweep of the six non-CARMA arms; see task_v2_out/overnight_b61_steps.log, _summary.txt" || say "nothing to commit"
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] for i in 1 2 3; do git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping && { say "pushed $(git rev-parse --short HEAD)"; break; }; sleep 60; done
 for V in noambig primary; do say "bucket $V: $(gsutil ls "$B/$V/" 2>/dev/null | wc -l) arm dirs under $B/$V/"; done
 say "primary backup CARMA $(gsutil ls ${WORKSPACE_BUCKET:?set WORKSPACE_BUCKET to your workspace bucket}/manuscript_final_2026-09/fine_mapping_runs/primary_v2_2026-09/noambig/CARMA/ 2>/dev/null | grep -c _carma_pip.tsv) noambig pip files"
-NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-cluster-name)
-REGION=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-region)
-say "stopping cluster $NAME ($REGION)"
-gcloud dataproc clusters stop "$NAME" --region "$REGION" --async >> "$LOG/steps.log" 2>&1 || say "stop FAILED: stop it by hand"
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-cluster-name)
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] REGION=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-region)
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] say "stopping cluster $NAME ($REGION)"
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] gcloud dataproc clusters stop "$NAME" --region "$REGION" --async >> "$LOG/steps.log" 2>&1 || say "stop FAILED: stop it by hand"

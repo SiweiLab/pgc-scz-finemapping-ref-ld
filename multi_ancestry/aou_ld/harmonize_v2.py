@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pipeline v2, step 6: one harmoniser for every arm (PIPELINE.md §4 and §6).
+"""Pipeline v2, step 6: one harmoniser for every arm (README.md, Pipeline design; RUN_ORDER.md steps 4–6).
 
 Replaces harmonize_loci.py, harmonize_loci_v2_union.py, merge_eur_eas_ld.py, the alignment in
 build_finemap_input_gctb.py, and subset_noambig_b34.py. It reads only through v2_io, so every

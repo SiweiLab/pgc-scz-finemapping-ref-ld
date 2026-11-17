@@ -3,9 +3,9 @@
 
 Everything downstream (harmonize_v2.py, the merged LD, every arm's inputs) reads LD and sumstats
 through this module and gets them indexed by vkey and signed to the master's ref_a1. Nothing
-else may re-align an allele (PIPELINE.md §5; gate 6 greps for it).
+else may re-align an allele (README.md, Pipeline design; gate 6 greps for it).
 
-Stored layout (PIPELINE.md §0, promoted by B49):
+Stored layout (README.md, Pipeline design; promoted by B49):
   LD_ROOT/ld_per_anc_{source}/{locus}/R.npz        key "R", n x n, in the SOURCE's own coding
   LD_ROOT/ld_per_anc_{source}/{locus}/snps.tsv.gz  vkey, rsid, src_a1, src_a2, sign, ...
   SS_ROOT/{anc}_sumstats/{locus}_sumstats.tsv.gz   raw PGC3 per-locus sumstats (never signed on disk)

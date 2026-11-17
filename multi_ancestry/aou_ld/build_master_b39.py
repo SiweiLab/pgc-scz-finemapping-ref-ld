@@ -3,7 +3,7 @@
 
 One row per variant present in any of the EUR, EAS or core per-locus sumstats inside the
 locus window, keyed on vkey = chr:bp:A:B (GRCh37, alleles upper-cased and sorted). rsid and
-ref_a1/ref_a2 come from EUR, else EAS, else core (PIPELINE.md D2). Read-only on its inputs.
+ref_a1/ref_a2 come from EUR, else EAS, else core (README.md, Pipeline design). Read-only on its inputs.
 
 Usage: python build_master_b39.py SS_ROOT LOCI_TXT OUT_DIR
   SS_ROOT holds {eur,eas,core}_sumstats/{locus}_sumstats.tsv.gz; OUT_DIR gets

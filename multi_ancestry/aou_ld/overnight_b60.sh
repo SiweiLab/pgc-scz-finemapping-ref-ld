@@ -38,9 +38,9 @@ for V in noambig primary; do for L in 1 3 5; do cp ~/work/primary_v2_$V/state_L$
 
 say "3. commit, push"
 cd "$REPO"
-git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out/lsweep   # -f: exports are *.csv.gz, ignored by the global *.* rule
-git commit -q -m "B60 overnight (unattended): CARMA L sweep 1/3/5 seeded, both variants; exports + summary in task_v2_out/lsweep/" || say "nothing to commit"
-for i in 1 2 3; do git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping && { say "pushed $(git rev-parse --short HEAD)"; break; }; sleep 60; done
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out/lsweep   # -f: exports are *.csv.gz, ignored by the global *.* rule
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git commit -q -m "B60 overnight (unattended): CARMA L sweep 1/3/5 seeded, both variants; exports + summary in task_v2_out/lsweep/" || say "nothing to commit"
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] for i in 1 2 3; do git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping && { say "pushed $(git rev-parse --short HEAD)"; break; }; sleep 60; done
 
 say "4. backups"
 for V in noambig primary; do for L in 1 3 5; do
@@ -49,10 +49,10 @@ for V in noambig primary; do for L in 1 3 5; do
   ops=$(gsutil -m rsync -r -n -c -x '(^|.*/)_inputs/.*' "$src" "$B/$V/CARMA_L$L/" 2>&1 | grep -c "Would copy")
   say "backup $V L=$L: $ops differences after sync"
 done; done
-cp "$LOG"/steps.log Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out/lsweep/overnight_b60_steps.log
-git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out/lsweep/overnight_b60_steps.log
-git commit -q -m "B60 overnight: backup check log" && git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping
-NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-cluster-name)
-REGION=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-region)
-say "stopping cluster $NAME ($REGION)"
-gcloud dataproc clusters stop "$NAME" --region "$REGION" --async >> "$LOG/steps.log" 2>&1 || say "stop FAILED: stop it by hand"
+cp "$LOG"/steps.log multi_ancestry/aou_ld/task_v2_out/lsweep/overnight_b60_steps.log
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git add -f Post-hoc_analyses/fine-mapping/multi_ancestry/aou_ld/task_v2_out/lsweep/overnight_b60_steps.log
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] git commit -q -m "B60 overnight: backup check log" && git pull --no-rebase -q origin fine-mapping && git push -q origin fine-mapping
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-cluster-name)
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] REGION=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/dataproc-region)
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] say "stopping cluster $NAME ($REGION)"
+# [as run; disabled in this release: committed results to the working repo / stopped the cluster] gcloud dataproc clusters stop "$NAME" --region "$REGION" --async >> "$LOG/steps.log" 2>&1 || say "stop FAILED: stop it by hand"

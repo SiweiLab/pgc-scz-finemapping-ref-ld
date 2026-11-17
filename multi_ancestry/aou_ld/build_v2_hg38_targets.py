@@ -2,7 +2,7 @@
 """Pipeline v2, step 3a: lift every master variant hg19 -> GRCh38 for the AoU EAS extraction.
 
 Replaces lift_eur_z_to_hg38_targets.py (Category A: EUR SNPs only) and the chr13 pilot's
-build_union_hg38_targets.py. The input is the whole master table (PIPELINE.md step 1), so the
+build_union_hg38_targets.py. The input is the whole master table (RUN_ORDER.md step 1), so the
 targets are the union of EUR, EAS and core sumstats: Category B for all 250 loci.
 
 Two departures from the v1 scripts, both deliberate:

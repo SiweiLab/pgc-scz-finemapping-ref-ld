@@ -33,6 +33,7 @@ from the latest release**, so "use the latest" changes no binary or package for 
   says "Default is 1000", but both run with 100 when the flag is omitted (SETTINGS block, their
   own example data). Every run used 100. So "10× stricter" was the help text, not the code.
   Pinned now as `N_CONV_SSS_FINEMAP = 100`, to be passed explicitly.
+  **The v2 runs reported in the paper pass `--n-conv-sss 1000` explicitly** (`N_CONV_SSS_FINEMAP_PRIMARY` in `aou_ld/run_params.py`); the 100 above describes the earlier runs.
 
 ## Defaults the drivers never pass (as run)
 
