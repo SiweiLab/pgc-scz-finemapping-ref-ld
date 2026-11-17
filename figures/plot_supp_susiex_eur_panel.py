@@ -92,18 +92,6 @@ def main():
         ax.annotate(lab, (-0.13, 1.06), xycoords="axes fraction", fontsize=16, fontweight="bold", color=INK)
     fig.savefig(a.out, bbox_inches="tight", facecolor="white")
 
-    g, e = res["gctb"], res["euraou"]
-    note = ("SuSiEx with European LD from UK Biobank (GCTB, 10,000 participants; the primary analysis) or from All of Us "
-            "(about 267,000 participants), with the same All of Us East Asian LD, the same association statistics and the "
-            "same settings; A/T and C/G variants excluded. (a) Precision-recall against the benchmark across the 193 loci, "
-            "scoring credible-set members only, with the benchmark's variants at PIP > 0.1 as positives, as in Fig. 1b; "
-            f"AUPRC {g['auprc']:.2f} (UK Biobank) and {e['auprc']:.2f} (All of Us). (b) Exact recovery of the benchmark's "
-            "lead variant: the run forms exactly one credible set and its top variant is the benchmark lead, each run's "
-            "credible sets gated on SuSiEx's own purity against its own European panel. Below: credible-set calls at "
-            f"PIP > 0.9 whose benchmark PIP is at most 0.1 (FP) or above 0.1 (TP): {g['fp']}/{g['tp']} and "
-            f"{e['fp']}/{e['tp']}. The two panels give closely similar results, with the UK Biobank panel slightly "
-            "more concordant.")
-    open(a.out.rsplit(".", 1)[0] + "_caption.txt", "w").write(note + "\n")
     print({t: {k: v for k, v in res[t].items() if k not in ("r", "pr")} for t in res})
     print(f"[done] wrote {a.out}")
 

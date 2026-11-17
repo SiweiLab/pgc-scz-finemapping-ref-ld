@@ -52,7 +52,6 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     ap.add_argument("--fig", default=V2)
     ap.add_argument("--stratum", default="122")
-    ap.add_argument("--note", default="", help="sentence appended to the caption, e.g. which run the exports come from")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
@@ -109,27 +108,8 @@ def main():
     ax.tick_params(colors=INK_MUTED, labelsize=13.5)
     ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
 
-    note = (
-        f"{n} confident loci; purity aligned at common_purity >= 0.5. Exact match only: the "
-        "arm's top CS variant must BE the published lead, with no r2 proxy and no condition "
-        "on our own PIP. An arm that does not resolve exactly one CS is non-concordant. "
-        "Dashed lines are group means. The test compares the two GROUPS: each locus gives a "
-        "per-ancestry score (fraction of its 3 arms recovering the lead) and a merged score "
-        "(fraction of its 4), compared by Wilcoxon signed-rank paired by locus, since every "
-        f"arm is scored on the same loci: per-ancestry mean {pa.mean():.1%} against merged "
-        f"{mg.mean():.1%}, mean per-locus difference +{(pa - mg).mean():.1%}, "
-        f"W = {w.statistic:.0f}, P = {w.pvalue:.1e} ({stars(w.pvalue)}); "
-        f"{int((pa > mg).sum())} loci favour per-ancestry, {int((pa < mg).sum())} favour "
-        f"merged, {int((pa == mg).sum())} are tied. common_purity is SuSiEx's composition applied to all "
-        "seven -- the stricter of the two conventions, used because FINEMAP, CARMA and "
-        "RSparsePro have no comparable native gate.")
-    if args.note:
-        note = note.rstrip() + " " + args.note
-    cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-    with open(cp, "w") as fh:
-        fh.write(" ".join(note.split()) + "\n")
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")
-    print(f"[done] wrote {args.out} and {cp}\n")
+    print(f"[done] wrote {args.out}\n")
     print(f"per-ancestry mean {pa.mean():.3f} | merged mean {mg.mean():.3f} | "
           f"diff {(pa - mg).mean():+.3f}")
     print(f"loci favouring per-ancestry {int((pa > mg).sum())}, merged "

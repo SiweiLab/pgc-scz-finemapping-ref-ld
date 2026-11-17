@@ -187,31 +187,9 @@ def main():
         spare.legend(handles=hM, frameon=False, fontsize=12.5, labelcolor=INK,
                      loc="upper left", bbox_to_anchor=(0.02, 0.52), alignment="left")
 
-    note = (
-        "Same metric as Fig. 1B: the truth set is fixed at benchmark PIP > "
-        f"{args.label_pip:g} and only the arm's own threshold sweeps, 0.01 to 0.99. "
-        + ("ALL CALLS are scored here, in and out of credible sets; read the out-of-CS part "
-           "with care, since the benchmark is credible-set restricted by construction and a "
-           "call of ours out there is scored against a reference with almost no way to "
-           "agree. " if args.all_variants else
-           "Only in-credible-set calls are scored. ")
-        + "One panel per arm, four curves per panel, one for each L, in the arm's own hue at "
-        "four opacities: the comparison this figure supports is WITHIN an arm, across L. "
-        "Drawing 28 curves on one axes was tried and is unreadable. The sensitivity "
-        "denominator is every benchmark positive in the joined set, so forming fewer "
-        "credible sets costs an arm rather than excusing it. SuSiEx runs with mult-step "
-        "DISABLED: it ignores --n_sig entirely when mult-step is on, so the sweep would "
-        "otherwise give identical curves; none of its four points is the primary run's SuSiEx. "
-        + ("Each other arm's PRIMARY fit is its own sweep point (L = 10; FINEMAP-merged k = 5), reused rather than "
-           "refitted, and marked '(primary)'. AUPRC as in Fig. 1B: trapezoid over recall in [0, 1], precision zero "
-           "beyond the arm's reach. " if args.pr else "")
-        + "Markers: hollow circle = PIP > 0.1, filled = > 0.5, hollow square = > 0.9.")
-    cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-    with open(cp, "w") as fh:
-        fh.write(" ".join(note.split()) + "\n")
     fig.tight_layout()
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")
-    print(f"[done] wrote {args.out} and {cp}\n")
+    print(f"[done] wrote {args.out}\n")
     R.to_csv(args.out.rsplit(".", 1)[0] + "_curve.csv", index=False)
     print(R[R.s == 0.1].pivot(index="arm", columns="L",
                               values=["sensitivity", "fdr"]).reindex(arms).round(3)

@@ -357,12 +357,6 @@ def main():
     if args.caption:
         fig.text(0.004, -0.02, note, fontsize=9.7, color=INK_MUTED, va="top", wrap=True,
                  transform=fig.transFigure)
-    else:
-        # captions live in figures/CAPTIONS.md; this sidecar is what that file is built from
-        cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-        with open(cp, "w") as fh:
-            fh.write(" ".join(note.split()) + "\n")
-        print(f"[done] wrote {cp}")
     fig.savefig(args.out, bbox_inches="tight", facecolor="white",
                 bbox_extra_artists=extra)
     print(f"[done] wrote {args.out}")

@@ -1,7 +1,7 @@
 """Where the figures and tables are written (and the composites read their panels from).
 
 Defaults to output/ next to this file. Set FIG_OUT to write everything to another directory
-instead. The four hand-made inputs live in hand_made/; make_figures.sh copies them into the output directory.
+instead. The two hand-made panels live in hand_made/; make_figures.sh copies them into the output directory.
 """
 import os
 

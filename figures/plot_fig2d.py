@@ -229,26 +229,6 @@ def main():
               # transposed: one key per line to the right of the colourbar; otherwise under the grid
               bbox_to_anchor=(1.115, 1.0) if args.transpose else (0.0, -0.012), handlelength=1.0, handletextpad=0.5)
 
-    note = (
-        "Rows are the 13 variants with benchmark PIP > 0.9, one per locus — the same "
-        "|P_B| = 13 as the alpha = 0.9 column of the credible-set-split figure. Ordered by "
-        "CHROMOSOME and position, not by PIP. The FIRST COLUMN is the benchmark's own PIP, with § on the same rule as ours, on "
-        "the same colour scale, so our columns are read against it. EUR-only arms are "
-        "excluded: they are out of the primary analysis. "
-        "COLOUR IS ONE THING ONLY: our in-credible-set PIP at the benchmark's lead variant, "
-        "not at whatever we picked; a lead the arm left outside every set scores 0. Variants "
-        "are the harmonised master without palindromic (A/T, C/G) variants. Everything else is a mark beside "
-        "the number: * means our top credible-set member is not the lead (a higher PIP the "
-        "arm never put in a set does not count), † that the lead sits outside every credible "
-        "set the arm formed, "
-        "and § that it did not resolve exactly one credible set — none, or two or "
-        "more, which the metric treats alike. For the SuSiE family 'none' is usually the PURITY GATE rather than the model finding nothing (a set below min_abs_corr 0.5 is dropped); FINEMAP-merged and CARMA have no native gate. An "
-        "arm can hold the lead at high PIP inside a credible set and still not have it on "
-        "top; FINEMAP routinely reports two or more credible sets while still leading on the "
-        "right variant. An en dash means the lead is absent from that arm's input entirely.")
-    cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-    with open(cp, "w") as fh:
-        fh.write(" ".join(note.split()) + "\n")
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")
     print(f"[done] wrote {args.out}\n")
     for i, l in enumerate(loci):

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Rebuild every figure panel, composite and supplementary table from the committed results (no cluster, no refits).
-# Verified: every output is pixel-identical (PNG) or exactly equal (CSV, XLSX, caption .txt) to the paper's.
+# Verified: every output is pixel-identical (PNG) or exactly equal (CSV, XLSX) to the paper's.
 #
 #   bash make_figures.sh                    # writes figures/output/ (the default)
 #   OUT=/tmp/fig_check bash make_figures.sh # writes elsewhere
@@ -10,8 +10,9 @@
 #   ../results/benchmark/pip_vectors_susiex_published_full.csv.gz   rebuilt from it (bench_sensfdr.BENCH)
 #   ../inputs/external/*.xlsx                     Trubetskoy 2022 ST11, Mawson 2026 media-2
 # Outside the repo: Arial Bold (macOS) or matplotlib's DejaVu Sans Bold (paths.bold_font), for panel letters.
-# Repo inputs: ../results/, ../inputs/loci_*.txt, and hand_made/ (fig1A.png, "supp fig1A.png", two captions), which
-# no script makes and which are copied into OUT first.
+# Repo inputs: ../results/, ../inputs/loci_*.txt, and hand_made/ (fig1A.png and "supp fig1A.png", the hand-drawn
+# panels of Fig 1a and Supp Fig 1a), which no script makes and which are copied into OUT first.
+# Figure legends are in the manuscript; no script writes caption files.
 #
 # Every script that reads or writes the output folder takes it from paths.V2 (env FIG_OUT), so OUT redirects all of them.
 set -euo pipefail
@@ -51,7 +52,6 @@ done
 
 # Fig 1c: recovery bars, 122 loci, scenario E
 python3 plot_fig1c_recovery.py --fig "$OUT" --stratum 122 \
-    --note "Exports: pipeline v2, no-palindromic run (the primary analysis; A/T and C/G variants excluded from every arm, as the benchmark excludes them)." \
     --out "$OUT/fig1c_recovery.png"
 # Supp Fig 4: recovery x 3 strata x 2 purity conventions (+ _group_means.csv for ST1)
 python3 plot_supp_fig2_recovery.py --fig "$OUT" --out "$OUT/supp_fig2_recovery_strata.png"
@@ -71,7 +71,7 @@ python3 plot_fig2d.py --export $X/main --suffix=-noambig --per-locus "$OUT/fig1c
 
 # ST4 / Supp Fig 11: in-CS FP/TP at PIP > 0.5 / 0.9
 python3 fp_in_cs.py --export $X/main --suffix=-noambig --out "$OUT/fp_in_cs.csv"
-# Supp Fig 6: published in-sample merged-LD fine-mapping vs reference LD (caption .txt is hand-written)
+# Supp Fig 6: published in-sample merged-LD fine-mapping vs reference LD 
 python3 plot_supp_published_vs_ref.py --out "$OUT/supp_published_vs_ref.png"
 # Supp Fig 5: published in-sample analyses as the benchmark (one variable at a time); coverage-0.95 runs for the 0.95 benchmarks
 python3 plot_supp_published_benchmark.py --out "$OUT/supp_published_benchmark.png"

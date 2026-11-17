@@ -47,21 +47,6 @@ SUB = {"193": "benchmark formed a CS", "175": "single benchmark CS",
 SCEN = [("C", "each method's own purity filter", 0.95), ("E", "common purity $\\geq$ 0.5", 0.40)]
 
 
-
-def gate_effect():
-    """The C -> E change per arm, in loci, from the tables actually plotted (was a hard-coded v1 sentence)."""
-    d = {}
-    for st in STRATA:
-        c = pd.read_csv(os.path.join(ARGS.fig, f"fig1c_{st}_C.csv")).set_index("arm").exact
-        e = pd.read_csv(os.path.join(ARGS.fig, f"fig1c_{st}_E.csv")).set_index("arm").exact
-        for a in ARMS:
-            d.setdefault(a, []).append(int(e[a] - c[a]))
-    sg = lambda x: "0" if x == 0 else f"{x:+d}"
-    rng = lambda v: sg(min(v)) if min(v) == max(v) else f"{sg(min(v))} to {sg(max(v))}"
-    parts = [f"{disp(a)} {rng(v)}" for a, v in d.items()]
-    return ("Effect of the purity gate (E minus C, exact matches, across the three strata): " + "; ".join(parts) +
-            ". FINEMAP-merged is the arm whose native output is ungated.")
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -141,22 +126,9 @@ def main():
     fig.legend(handles=h, frameon=False, fontsize=12, ncol=3, labelcolor=INK,
                loc="lower center", bbox_to_anchor=(0.5, -0.06))
 
-    note = (
-        "Exact match throughout: the arm's top CS variant must BE the published lead, with "
-        "no r2 proxy and no condition on our own PIP; an arm that does not resolve exactly "
-        "one CS is non-concordant. Columns are the three strata, rows the two purity "
-        "settings. C uses each arm's own native gate; E aligns all seven at "
-        "common_purity >= 0.5, which is SuSiEx's composition (max over ancestries of the "
-        "min pairwise |r|) and the stricter of the two conventions -- it is used because "
-        "FINEMAP, CARMA and RSparsePro have no comparable native gate. Dashed lines are "
-        "group means; the per-ancestry vs merged comparison is "
-        "marked per panel as stars from a Wilcoxon signed-rank test paired by locus, the same test as Fig. 1C, with exact P values in the companion supp_fig2_recovery_strata_group_means.csv. " + gate_effect())
-    cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-    with open(cp, "w") as fh:
-        fh.write(" ".join(note.split()) + "\n")
     fig.tight_layout()
     fig.savefig(args.out, bbox_inches="tight", facecolor="white")
-    print(f"[done] wrote {args.out} and {cp}\n")
+    print(f"[done] wrote {args.out}\n")
     T = pd.DataFrame(tbl)
     T.to_csv(args.out.rsplit(".", 1)[0] + "_group_means.csv", index=False)
     print(T.pivot(index=["stratum", "n_loci"], columns=["scenario", "group"],

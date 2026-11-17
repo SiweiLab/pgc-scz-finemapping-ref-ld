@@ -108,18 +108,6 @@ def main():
     fig.savefig(a.out, bbox_inches="tight", facecolor="white")
 
     r = {arm: rec["122"].at[arm, "exact_rate"] for _, mg, eu in PAIRS for arm in (mg, eu)}
-    note = ("FINEMAP and SuSiE-RSS run on the trans-ancestry meta-analysis statistics with one LD matrix merged from the "
-            "UK Biobank European and All of Us East Asian references (merged EUR+EAS), against the same methods and "
-            "settings on the European statistics with UK Biobank LD alone (EUR only); A/T and C/G variants excluded. "
-            "(a) Precision-recall against the benchmark across the 193 loci, scoring credible-set members only, with the "
-            "benchmark's variants at PIP > 0.1 as positives, as in Fig. 1b. (b) Exact recovery of the benchmark's lead "
-            "variant, as in Fig. 1c (exactly one credible set, purity >= 0.5, top variant = benchmark lead), on the 122 "
-            "confident, 175 single-credible-set and all 193 loci. Below: credible-set calls at PIP > 0.9 whose "
-            "benchmark PIP is at most 0.1 (FP) or above 0.1 (TP). On the 122 loci, merging in East Asian data raised "
-            f"recovery from {100 * r['EUR-FINEMAP']:.0f}% to {100 * r['FINEMAP-merged']:.0f}% (FINEMAP) and from "
-            f"{100 * r['EUR-SuSiE-RSS']:.0f}% to {100 * r['SuSiE-merged']:.0f}% (SuSiE-RSS), still below the "
-            "ancestry-aware methods (83-92%; Fig. 1c).")
-    open(a.out.rsplit(".", 1)[0] + "_caption.txt", "w").write(note + "\n")
     print(auprc); print(r)
     print(f"[done] wrote {a.out}")
 

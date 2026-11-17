@@ -20,7 +20,7 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `analyses/` | supplementary cluster analyses, one script per question |
 | `benchmark/` | building the published benchmark tables the results are scored against |
 | `results/` | every committed output the figures are built from (below) |
-| `figures/` | figure and table code; `make_figures.sh` rebuilds them all into `figures/output/`; `hand_made/` holds the four hand-made inputs |
+| `figures/` | figure and table code; `make_figures.sh` rebuilds them all into `figures/output/`; `hand_made/` holds the two hand-drawn panels (Fig 1a, Supp Fig 1a); legends are in the manuscript |
 | `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output and three published tables (the tables for review only; see its README) |
 | `environment/` | conda environment spec, lock file, setup script, and tool versions (`VERSIONS.md`) |
 | `RUN_ORDER.md` | every step as it was run, with commands |

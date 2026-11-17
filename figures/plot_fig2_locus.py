@@ -294,35 +294,6 @@ def main():
     fig.suptitle(f"{chrom}:{lo:,}–{hi:,}" + ("\n" if C else "   ·   ") + f"top variant {lead_rsid}"
                  + (f"   ·   {args.title}" if args.title else ""),
                  fontsize=13 if C else 15.4, color=INK, x=0.004, ha="left", y=1.005 if C else 0.997)
-    note = (
-        "Association statistics and r2 on the non-palindromic variants of the harmonised "
-        "master, with r2 from the LD panels the arms were run on (EUR: GCTB 10k; EAS: AoU; "
-        "MERGED: the per-locus weighted mix of the two used by the merged arms). Panels top to bottom: "
-        "-log10 p in EUR, EAS and MERGED (trans-ancestry meta-analysis), each coloured by r2 "
-        "to the benchmark lead in that same panel; and PIP, with the benchmark (Yuan et al.) "
-        f"as black points and our {len(arms)} trans-ancestry arms as a grey median line with a "
-        "min-max ribbon"
-        + (f"; every PIP above {args.pip_dots:g} from any arm is a dot in that arm's colour"
-           if args.pip_dots is not None else "")
-        + (". Open squares and dotted lines mark " + ", ".join(focus_bp)
-           if focus_bp else "")
-        + ". r2 uses a "
-        "sequential single-hue ramp rather than LocusZoom's binned rainbow: the convention "
-        "is familiar but a rainbow is not perceptually ordered and fails for colourblind "
-        "readers. A HOLLOW RING is a variant with no r2 in that panel, never r2 = 0 -- 'not "
-        "in this panel' and 'unlinked' are different statements and the difference is the "
-        "substance of these loci. The dashed line is p = 5e-8. The GENE TRACK is Ensembl "
-        "GRCh37, matching this pipeline's coordinates, fetched by "
-        "fetch_gene_track.py, which refuses to write unless the locus lead's "
-        "position on that assembly equals the bp our own table carries. Bars are "
-        "protein-coding genes, their length the gene's span; non-coding genes, clone-name "
-        "placeholders and pseudogenes are omitted. The gene containing the benchmark lead is "
-        "labelled in bold. A gene shown "
-        "faded at an edge with a distance lies outside the interval and is the nearest "
-        "protein-coding gene to a locus that contains none.")
-    cp = args.out.rsplit(".", 1)[0] + "_caption.txt"
-    with open(cp, "w") as fh:
-        fh.write(" ".join(note.split()) + "\n")
     # the colourbars narrow panels 1-3 only; match the PIP and gene panels to them so one
     # bp sits at the same x in every panel (the focus lines must cross the stems they mark)
     p0 = axes[0].get_position()

@@ -100,16 +100,6 @@ def main():
               bbox_to_anchor=(0.5, -0.17))
     fig.savefig(a.out, bbox_inches="tight", facecolor="white")
 
-    note = (f"Fine-mapping resolution against the benchmark. Of the 193 loci at which the benchmark formed a credible "
-            f"set, it resolved {n} to a lead variant with PIP > {a.pip:g}; each bar divides those {n} loci by what each "
-            f"method's top credible-set variant was: the same variant at PIP > {a.pip:g} (solid), a different variant "
-            f"at PIP > {a.pip:g} (hatched), or no variant above {a.pip:g} or no credible set (grey). Pooled over methods, "
-            f"{g.loc['per-ancestry LD', 'same']}/{g.loc['per-ancestry LD', 'n']} for the ancestry-aware methods and "
-            f"{g.loc['merged LD', 'same']}/{g.loc['merged LD', 'n']} for the merged-LD methods. A further "
-            f"{min(extra)}-{max(extra)} loci per method were resolved to the benchmark's lead at PIP > {a.pip:g} "
-            f"where the benchmark's own PIP for it fell below {a.pip:g}; they lie outside the {n} and are not shown. "
-            f"Only credible-set members are scored, and A/T and C/G variants are excluded, as in Fig. 1b and 2d.")
-    open(a.out.rsplit(".", 1)[0] + "_caption.txt", "w").write(note + "\n")
     print(t.to_string(index=False)); print("extra (outside the denominator):", dict(zip(t.arm, extra)))
     print(f"[done] wrote {a.out}")
 
