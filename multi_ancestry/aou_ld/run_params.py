@@ -188,7 +188,7 @@ MIN_PURITY_MAWSON = "0.5"
 
 # Mawson: "maximum number of causal variants was set to 5" for both susieR and FINEMAP.
 # Matches KMAX_FINEMAP already; SuSiE-merged's own primary/canonical run uses L=10
-# (archive/run_susie_merged.R), so L=5 is the one new value for that arm here.
+# (susie/run_susie_merged.R), so L=5 is the one new value for that arm here.
 L_MAWSON = 5
 
 

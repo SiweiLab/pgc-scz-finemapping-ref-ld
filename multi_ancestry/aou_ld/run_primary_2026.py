@@ -97,7 +97,6 @@ if V2:
 BUCKET = f"{WORKSPACE_BUCKET}/manuscript_final_2026-09"
 BUCKET_LD = f"{BUCKET}/ld_matrices"
 BUCKET_EUR_SS = f"{BUCKET}/PGC_SCZ_sumstats/eur_sumstats"
-FINEMAP_INPUT_BUILDER = os.path.join(FM_DIR, "finemap", "build_finemap_input_gctb.py")
 
 # --- Tools: one conda env + three non-conda tools, built by envs/setup_ilae4_env.sh.
 ENV = os.path.expanduser(os.environ.get("ILAE4_ENV", "~/envs/ilae4_finemap"))
@@ -226,10 +225,10 @@ def _merged_prep(arm):
 
 
 def _susie_merged(locus, info):
-    """archive/run_susie_merged.R: locus, finemap_dir, out_dir, coverage, min_abs_corr, L.
+    """susie/run_susie_merged.R: locus, finemap_dir, out_dir, coverage, min_abs_corr, L.
     The fifth argument is what the original run omitted (-> min_abs_corr 0.1); the sixth was
     a hardcoded L = 10 until B31."""
-    return [RSCRIPT, os.path.join(MA_DIR, "archive", "run_susie_merged.R"),
+    return [RSCRIPT, os.path.join(FM_DIR, "susie", "run_susie_merged.R"),
             locus, prep_dir("SuSiE-merged"), out_dir("SuSiE-merged"),
             cov(), P.MIN_PURITY, str(L_of("SuSiE-merged"))]
 
@@ -256,18 +255,8 @@ def _build_eur_zld(arm, locus):
         _write_master(f"{d}/{locus}.master", f"{d}/{locus}.z", f"{d}/{locus}.ld", f"{d}/{locus}",
                       P.N_GWAS_PUBLISHED_EUR)
         return
-    os.makedirs(EUR_LD_UKBNAMES, exist_ok=True)
-    for src, dst in ((f"{EUR_LD}/{locus}_R.npz", f"{EUR_LD_UKBNAMES}/{locus}_ukb_R.npz"),
-                     (f"{EUR_LD}/{locus}_snps.txt.gz", f"{EUR_LD_UKBNAMES}/{locus}_ukb_snps.txt.gz")):
-        try:
-            _link(src, dst)
-        except FileExistsError:
-            pass                                   # the other EUR arm linked it first
-    subprocess.run([PYTHON, FINEMAP_INPUT_BUILDER, locus, "--ld-dir", EUR_LD_UKBNAMES,
-                    "--sumstats-dir", EUR_SS, "--out", d, "--n", str(P.N_GWAS_PUBLISHED_EUR)]
-                   + (["--drop-ambiguous"] if DROP_AMBIGUOUS else []),
-                   check=True, capture_output=True, text=True,
-                   env={**os.environ, **P.THREAD_LIMIT_ENV})
+    # The v1 input route (finemap/build_finemap_input_gctb.py) is not part of this release.
+    sys.exit("PRIMARY_V2_INPUTS is not set: point it at a harmonize_v2.py output tree (RUN_ORDER.md steps 4-6)")
 
 
 def _eur_finemap_prep(locus):

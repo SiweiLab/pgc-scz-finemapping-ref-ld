@@ -7,7 +7,7 @@ excluded (wider than any 3 Mb window, as in B22), so 249 loci over 234 windows.
 
 Streaming: download one window's .npz/.gz into a scratch dir, cut every locus it serves,
 write the cuts, delete the window. The reader is B22's, imported unchanged:
-task_b22_out/build_polyfun_arm_b22.py::load_window_raw (64 MiB sequential reads, raw COO
+polyfun_windows.py::load_window_raw (64 MiB sequential reads, raw COO
 triplets, no n x n build) and ::submatrix_from_coo (lower triangle + half diagonal, filtered
 to the locus's indices before anything is built).
 
@@ -33,8 +33,8 @@ import numpy as np
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "task_b22_out"))
-import build_polyfun_arm_b22 as b22  # noqa: E402
+sys.path.insert(0, HERE)
+import polyfun_windows as b22  # noqa: E402  (formerly task_b22_out/build_polyfun_arm_b22.py)
 
 URL = "https://broad-alkesgroup-ukbb-ld.s3.amazonaws.com/UKBB_LD/{}"
 EXCLUDED_LOCUS = "chr3_48182866_53553354"

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Supplementary Fig. 4 composite: the three Fig. 1b variants in one row, each with its own legend (AUPRCs differ) and a
-label naming the variant, since the source panels share one title. Re-run after plot_sensfdr_curve.py, then
-assemble_supp.py."""
+label naming the variant, since the source panels share one title. Re-run after plot_sensfdr_curve.py."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 

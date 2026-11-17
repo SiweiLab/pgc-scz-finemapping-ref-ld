@@ -122,7 +122,6 @@ python3 build_supp_tables.py
 
 # ---------------------------------------------------------------- assembly (writes into figures/v2/supp and
 # figures/v2/manuscript, always under figures/v2 regardless of OUT -- run by hand once figures/v2 itself is final)
-# python3 assemble_supp.py
 # python3 assemble_manuscript.py
 
 echo "[done] all outputs in $OUT"

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Supplementary Fig. 5 composite: the L sweep under credible-set scoring (a, as Fig. 1b) above the same sweep with all
-variants scored (b). Supplementary Note 4 rests on the contrast between the two. Re-run after plot_Lsweep_curve.py, then
-assemble_supp.py."""
+variants scored (b). Supplementary Note 4 rests on the contrast between the two. Re-run after plot_Lsweep_curve.py."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 

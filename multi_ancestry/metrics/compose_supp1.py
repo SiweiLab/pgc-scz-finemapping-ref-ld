@@ -2,8 +2,7 @@
 """Supplementary Fig. 1 composite: a = the hand-drawn data flowchart ("supp fig1A.png", hand-made, flattened onto white) at its
 native size, which also sets the canvas; b = the variants each method fitted (plot_variant_domains.py --v2 --arms-only,
 supp_fig1b_arm_domains.png), scaled (LANCZOS) to 2,160 px wide and pasted into the flowchart's empty top-right corner,
-20 px from the top and right edges. Panel letters Arial Bold 96. Re-run after plot_variant_domains.py, then
-assemble_supp.py. Panel b's empty top band is trimmed before pasting (2026-10-11).
+20 px from the top and right edges. Panel letters Arial Bold 96. Re-run after plot_variant_domains.py. Panel b's empty top band is trimmed before pasting (2026-10-11).
   python3 compose_supp1.py [--dir figures/v2]
 """
 import argparse

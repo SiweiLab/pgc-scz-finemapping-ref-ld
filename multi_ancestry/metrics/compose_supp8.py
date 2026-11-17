@@ -2,7 +2,7 @@
 """Supplementary Fig. 8 composite: kriging at the Fig. 2b locus (a EUR, b EAS; plot_supp_kriging.py) on top, and the in-CS
 precision-recall of Fig. 1b with the high-s loci removed (c; plot_sensfdr_curve.py --s-flag 0.01) below, at C_FRAC of
 the width so its fonts match a/b. Panel c answers a co-author's round-3 comment: the high-PIP dip in SuSiEx's curve is the two calls at this locus, which has
-the largest per-ancestry s of all 250 (B70, EAS 0.076). Re-run after both plotting scripts, then assemble_supp.py."""
+the largest per-ancestry s of all 250 (B70, EAS 0.076). Re-run after both plotting scripts."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 
