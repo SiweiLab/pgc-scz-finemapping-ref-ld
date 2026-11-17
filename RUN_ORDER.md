@@ -63,7 +63,8 @@ as the Hail row ID and alleles complemented where the segment is inverted.
 python3 build_v2_hg38_targets.py --master v2_inputs/master_expected_laptop.tsv.gz \
     --out v2_inputs/hg38_targets
 ```
-- **Out (committed):** `v2_inputs/hg38_targets/{locus}_hg38_targets.tsv`, `intervals.tsv`, `liftover_all.tsv.gz`.
+- **Out:** `v2_inputs/hg38_targets/{locus}_hg38_targets.tsv`, `intervals.tsv`, `liftover_all.tsv.gz`. Not committed: this command
+  rebuilds all 252 files byte-identically from the committed master table (needs `pyliftover`, which downloads the UCSC chain).
 - **Check:** 272,758 of 272,841 lifted to their own chromosome, 250/250 loci, 0 collisions.
 
 ## 3. AoU v9 EAS and EUR LD (cluster, Hail)
@@ -240,7 +241,7 @@ OUT=/tmp/regen_check bash regenerate_v2.sh  # writes elsewhere, repo untouched
 - **In:** `aou_ld/task_v2_out/`, `aou_ld/task_{a,b53,b55,b57,b64,b67,b70,b71}_out/`, `metrics/*.csv(.gz)`, `metrics/loci_*.txt`,
   `multi_ancestry/inputs/` (Yuan et al.'s SuSiEx output is not distributed; see `inputs/README.md`). Hand-made, no script:
   `figures/v2/fig1A.png`, `figures/v2/supp fig1A.png`, the two `supp_published_*_caption.txt`.
-- **Check:** with `OUT` elsewhere, every output is pixel-identical (PNG) or exactly equal (CSV, XLSX, captions) to `figures/v2/`.
+- **Check:** every output was pixel-identical (PNG) or exactly equal (CSV, XLSX, captions) to the figures and tables in the paper.
 
 ## Commands not found in the run records
 

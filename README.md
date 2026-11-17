@@ -18,9 +18,9 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `multi_ancestry/aou_ld/` | the cluster pipeline: master variant table, LD builds, harmonisation (`harmonize_v2.py`, `v2_io.py`), the fit driver (`run_primary_2026.py`, parameters in `run_params.py`), exports, and the supplementary analyses |
 | `multi_ancestry/aou_ld/task_v2_out/` | per-method PIP and credible-set exports for all 250 loci, which every figure is built from |
 | `multi_ancestry/aou_ld/task_*_out/` | exports from the supplementary analyses (see `RUN_ORDER.md`) |
-| `multi_ancestry/aou_ld/v2_inputs/` | the master variant table, locus list and coordinates, and GRCh38 target lists |
+| `multi_ancestry/aou_ld/v2_inputs/` | the master variant table, locus list and coordinates (the GRCh38 target lists are rebuilt by `build_v2_hg38_targets.py`; `RUN_ORDER.md` step 3a) |
 | `multi_ancestry/metrics/` | concordance metrics, figures and supplementary tables; `regenerate_v2.sh` rebuilds them all |
-| `multi_ancestry/metrics/figures/v2/` | the figure panels and tables as built |
+| `multi_ancestry/metrics/figures/v2/` | the four hand-made figure inputs; `regenerate_v2.sh` writes every figure and table here |
 | `multi_ancestry/multisusie/`, `multi_ancestry/mesusie/`, `multi_ancestry/archive/run_susie_merged.R`, `susie/`, `finemap/` | per-method runners and input builders called by the fit driver |
 | `multi_ancestry/envs/` | conda environment spec, lock file and setup script |
 | `multi_ancestry/inputs/` | where external inputs go (none are redistributed; see its README) |
@@ -52,7 +52,7 @@ OUT=/tmp/regen_check bash regenerate_v2.sh     # writes to /tmp/regen_check; omi
 
 This rebuilds every figure panel, composite and supplementary table from the committed exports, without refitting. Most
 outputs need the benchmark (below), and a few read the third-party tables listed in `multi_ancestry/inputs/README.md`.
-Built that way, every output matches the committed `figures/v2/` files exactly.
+Built that way, every output matched the figures and tables in the paper exactly (PNG pixels, CSV, XLSX cells).
 
 ## Rerunning the fine-mapping (All of Us Researcher Workbench)
 

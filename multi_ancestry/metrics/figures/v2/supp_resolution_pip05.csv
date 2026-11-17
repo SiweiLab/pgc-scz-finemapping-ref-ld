@@ -1,8 +1,0 @@
-arm,group,n,same,different,not_confident
-SuSiEx-ours,per-ancestry LD,41,34,1,6
-MultiSuSiE,per-ancestry LD,41,34,1,6
-MESuSiE,per-ancestry LD,41,30,1,10
-FINEMAP-merged,merged LD,41,31,4,6
-SuSiE-merged,merged LD,41,30,3,8
-RSparsePro,merged LD,41,22,1,18
-CARMA,merged LD,41,25,3,13
