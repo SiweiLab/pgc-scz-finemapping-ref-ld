@@ -91,6 +91,6 @@ lists the few commands whose exact arguments were not recorded.
 
 No participant identifiers or individual-level data are included.
 
-## Licence
+## License
 
 This project is licensed under the [MIT License](LICENSE).
