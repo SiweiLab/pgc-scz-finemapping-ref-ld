@@ -84,7 +84,7 @@ lists the few commands whose exact arguments were not recorded.
 |---|---|
 | PGC3 schizophrenia summary statistics (EUR, EAS and core meta-analysis) | public, from the [Psychiatric Genomics Consortium](https://pgc.unc.edu/for-researchers/download-results/) |
 | UK Biobank European LD (GCTB, 10,000 participants) | public, [distributed with GCTB](https://gctbhub.cloud.edu.au/data/SBayesRC/resources/GWFM/LD/Imputed13M/) |
-| PolyFun UK Biobank LD (sensitivity analysis) | public, `https://broad-alkesgroup-ukbb-ld.s3.amazonaws.com/UKBB_LD/` |
+| PolyFun UK Biobank LD (sensitivity analysis) | public, from the Amazon S3 bucket `s3://broad-alkesgroup-ukbb-ld/UKBB_LD/` (download with the AWS CLI, no account needed: `aws s3 cp --no-sign-request s3://broad-alkesgroup-ukbb-ld/UKBB_LD/<window>.npz .`); `pipeline/build_ld_eur_polyfun.py` fetches the windows it needs |
 | All of Us v9 genotypes and the LD derived from them | Controlled Tier; registered researchers only. Neither genotypes nor derived LD can leave the Workbench, so neither is included. The code to rebuild the LD is. |
 | Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | included, with the authors' permission (`inputs/external/yuan2024_susiex_output.zip`, `results/benchmark/`) |
 | Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | not included; download from the publishers (links and file names in `inputs/external/README.md`) |
@@ -93,4 +93,4 @@ No participant identifiers or individual-level data are included.
 
 ## Licence
 
-MIT; see `LICENSE`.
+This project is licensed under the [MIT License](LICENSE).
