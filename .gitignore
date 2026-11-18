@@ -1,5 +1,9 @@
 # Unpacked from inputs/external/yuan2024_susiex_output.zip by figures/make_figures.sh
 inputs/external/202.EUR_ASN.SuSiEx_spec/
+# Published tables: downloaded by the reader, not redistributed (inputs/external/README.md)
+inputs/external/Trubetskoy2022_SupplementaryTable11.xlsx
+inputs/external/Yuan2024_SupplementaryTables_MOESM4.xlsx
+inputs/external/Mawson2026_media-2_FINEMAP_full.xlsx
 # Rebuilt by pipeline/build_hg38_targets.py
 inputs/hg38_targets/
 # Built by figures/make_figures.sh

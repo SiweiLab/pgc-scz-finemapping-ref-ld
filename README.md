@@ -21,7 +21,7 @@ published in-sample SuSiEx analysis of Yuan *et al.* (2024).
 | `benchmark/` | building the published benchmark tables the results are scored against |
 | `results/` | every committed output the figures are built from (below) |
 | `figures/` | figure and table code; `make_figures.sh` rebuilds them all into `figures/output/`; `hand_made/` holds the two hand-drawn panels (Fig 1a, Supp Fig 1a); legends are in the manuscript |
-| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output and three published tables (the tables for review only; see its README) |
+| `inputs/` | locus lists and coordinates, the master variant table, the GCTB block file and the PolyFun windows; `inputs/external/` holds the benchmark output, and says where to download three published tables (see its README) |
 | `environment/` | conda environment spec, lock file, setup script, and tool versions (`VERSIONS.md`) |
 | `RUN_ORDER.md` | every step as it was run, with commands |
 
@@ -65,7 +65,7 @@ OUT=/tmp/fig_check bash make_figures.sh     # writes to /tmp/fig_check; omit OUT
 ```
 
 This rebuilds every figure panel, composite and supplementary table from the committed exports, without refitting. Most
-outputs need the benchmark, and a few read the published tables; both are in `inputs/external/` (see its README).
+outputs need the benchmark, and a few read a published table, which you download first; see `inputs/external/README.md`.
 Built that way, every output matched the figures and tables in the paper exactly (PNG pixels, CSV, XLSX cells).
 
 ## Rerunning the fine-mapping (All of Us Researcher Workbench)
@@ -87,7 +87,7 @@ lists the few commands whose exact arguments were not recorded.
 | PolyFun UK Biobank LD (sensitivity analysis) | public, `https://broad-alkesgroup-ukbb-ld.s3.amazonaws.com/UKBB_LD/` |
 | All of Us v9 genotypes and the LD derived from them | Controlled Tier; registered researchers only. Neither genotypes nor derived LD can leave the Workbench, so neither is included. The code to rebuild the LD is. |
 | Benchmark: Yuan *et al.* in-sample SuSiEx output, and the per-variant posterior rebuilt from it | included, with the authors' permission (`inputs/external/yuan2024_susiex_output.zip`, `results/benchmark/`) |
-| Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | included for review in `inputs/external/`; from the publishers (links in its README), licences to be checked before release |
+| Published tables (Trubetskoy 2022 ST11, Yuan 2024 supplementary tables, Mawson 2026 media-2) | not included; download from the publishers (links and file names in `inputs/external/README.md`) |
 
 No participant identifiers or individual-level data are included.
 

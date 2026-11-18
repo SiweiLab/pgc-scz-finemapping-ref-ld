@@ -8,7 +8,7 @@
 # External inputs (see ../inputs/external/README.md):
 #   ../inputs/external/yuan2024_susiex_output.zip  Yuan et al. SuSiEx output, unpacked below (bench_sensfdr.BENCH_RAW; the 193 loci)
 #   ../results/benchmark/pip_vectors_susiex_published_full.csv.gz   rebuilt from it (bench_sensfdr.BENCH)
-#   ../inputs/external/*.xlsx                     Trubetskoy 2022 ST11, Mawson 2026 media-2
+#   ../inputs/external/Trubetskoy2022_SupplementaryTable11.xlsx   not included: download it first (link in that README)
 # Outside the repo: Arial Bold (macOS) or matplotlib's DejaVu Sans Bold (paths.bold_font), for panel letters.
 # Repo inputs: ../results/, ../inputs/loci_*.txt, and hand_made/ (fig1A.png and "supp fig1A.png", the hand-drawn
 # panels of Fig 1a and Supp Fig 1a), which no script makes and which are copied into OUT first.
@@ -26,6 +26,13 @@ X=../results/finemap
 export FIG_OUT="$OUT"   # paths.py: every script that reads/writes the output folder uses this
 
 cp hand_made/* "$OUT/"
+
+# The published Trubetskoy 2022 table is not redistributed; stop early if it has not been downloaded
+ST11=../inputs/external/Trubetskoy2022_SupplementaryTable11.xlsx
+if [ ! -f "$ST11" ]; then
+    echo "[error] missing $ST11: download Supplementary Table 11 of Trubetskoy et al. 2022 (see ../inputs/external/README.md)" >&2
+    exit 1
+fi
 
 # Yuan et al.'s SuSiEx output ships zipped; unpack it once
 [ -d ../inputs/external/202.EUR_ASN.SuSiEx_spec ] || unzip -q ../inputs/external/yuan2024_susiex_output.zip -d ../inputs/external/

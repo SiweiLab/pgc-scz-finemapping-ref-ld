@@ -241,7 +241,7 @@ cd figures
 bash make_figures.sh                     # writes figures/output/
 OUT=/tmp/fig_check bash make_figures.sh  # writes elsewhere
 ```
-- **In:** `results/`, `inputs/loci_*.txt`, `inputs/external/` (Yuan et al.'s SuSiEx output is not distributed; see
+- **In:** `results/`, `inputs/loci_*.txt`, `inputs/external/` (Yuan et al.'s SuSiEx output is included; the Trubetskoy 2022 ST11 table is downloaded first, see
   `inputs/external/README.md`). Hand-made, no script: `figures/hand_made/` (`fig1A.png`, `supp fig1A.png`). Legends are in the manuscript.
 - **Check:** every output was pixel-identical (PNG) or exactly equal (CSV, XLSX) to the figures and tables in the paper.
 

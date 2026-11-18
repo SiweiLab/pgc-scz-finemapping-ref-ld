@@ -3,12 +3,12 @@
 Files the analysis reads that were not produced by this pipeline: the benchmark (Yuan *et al.*'s SuSiEx output) and three
 published supplementary tables.
 
-The benchmark output is redistributed with its authors' permission. The three published tables are **included for review
-only** while the repository is private: before it is made public each must be cleared under its publisher's licence, and
-any that is not is removed from the repository and its history, for readers to download from the source below under the
-name given.
+The benchmark output is included, redistributed with its authors' permission. The three published tables are **not
+included**: download each from its source below and save it here under the name in the first column (these names are
+git-ignored). `figures/make_figures.sh` needs only the Trubetskoy table and stops with a message if it is missing; the
+other two are read only by the `benchmark/` scripts that built tables already committed here.
 
-| File | What it is | Source | Read by |
+| Save as | What it is | Source | Read by |
 |---|---|---|---|
 | `Trubetskoy2022_SupplementaryTable11.xlsx` | PGC3-SCZ FINEMAP results (ST11a–e); ST11d = marginal PIPs | Trubetskoy *et al.* 2022, *Nature* 604:502, Supplementary Table 11 (https://doi.org/10.1038/s41586-022-04434-5) | `figures/plot_supp_published_vs_ref.py`, `figures/plot_supp_published_benchmark.py` |
 | `Yuan2024_SupplementaryTables_MOESM4.xlsx` | Yuan *et al.* supplementary tables (`41588_2024_1870_MOESM4_ESM.xlsx`) | Yuan *et al.* 2024, *Nat. Genet.* 56:1841, Supplementary Tables (https://doi.org/10.1038/s41588-024-01870-z) | `benchmark/derive_confident_stratum.py` → `inputs/loci_confident122.txt` |
